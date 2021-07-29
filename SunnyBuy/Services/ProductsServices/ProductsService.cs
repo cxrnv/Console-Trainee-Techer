@@ -12,7 +12,7 @@ namespace SunnyBuy.Services.ProductsServices
 
         public List<ProductsModel> ChooseProductsCategory(CategoryEnum categoryEnum)
         {
-            return product.ProductsList()                
+            return product.ProductsList()
                 .Where(a => a.CategoryEnum == categoryEnum)
                 .Select(c => new ProductsModel
                 {
@@ -22,18 +22,30 @@ namespace SunnyBuy.Services.ProductsServices
                 }).ToList();
         }
 
-        public ObterModel ObterProduto(int produtoId)
+        public GetModel GetProduct(int productId)
         {
             return product.ProductsList()
-                .Where(a => a.ProductId == produtoId)
-                .Select(c => new ObterModel
+                .Where(a => a.ProductId == productId)
+                .Select(c => new GetModel
                 {
                     ProductId = c.ProductId,
                     Name = c.Name,
                     Price = c.Price,
                     Detail = c.Detail,
-                    Quantity = c.Quantity
+                    Quantity = c.Quantity 
                 }).FirstOrDefault();
+        }
+
+        public List<ProductsModel> GetProductId(List<int> productsId )
+        {
+            return product.ProductsList()
+                .Where(a => productsId.Contains(a.ProductId))
+                .Select(c => new ProductsModel
+                {
+                    ProductId = c.ProductId,
+                    Name = c.Name,
+                    Price = c.Price
+                }).ToList();
         }
     }
 }

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SunnyBuy.Views
+namespace SunnyBuy.Services.PurchaseServices
 {
-    public class LoginView
+    public class PurchaseService
     {
+
     }
 }

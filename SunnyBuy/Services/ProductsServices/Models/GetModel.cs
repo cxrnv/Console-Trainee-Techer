@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SunnyBuy.Services.ProductsServices.Models
+﻿namespace SunnyBuy.Services.ProductsServices.Models
 {
-    public class ObterModel
+    public class GetModel
     {
         public int ProductId { get; set; }
         public string Name { get; set; }

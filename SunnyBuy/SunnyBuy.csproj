@@ -6,10 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\BilletServices\Models\" />
-    <Folder Include="Services\CreditCardServices\Models\" />
-    <Folder Include="Services\LoginServices\Models\" />
-    <Folder Include="Services\PixServices\Models\" />
+    <Folder Include="Services\PurchaseServices\Models\" />
   </ItemGroup>
 
 </Project>

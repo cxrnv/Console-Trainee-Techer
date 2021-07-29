@@ -2,12 +2,12 @@
 
 namespace SunnyBuy.Services.CartServices.Models
 {
-    public class ListModel
+    public class PostModel
     {
         public int CartId { get; set; }
+        public int UserId { get; set; }
         public int ProductId { get; set; }
         public DateTime DateInclude { get; set; }
-        public string Name { get; set; }
-        public float Price { get; set; }
+        public bool Deleted { get; set; }
     }
 }

@@ -6,5 +6,6 @@ namespace SunnyBuy.Entitities
     {
         public int PurchaseId { get; set; }
         public DateTime DatePurchase { get; set; }
+        //FK
     }
 }
