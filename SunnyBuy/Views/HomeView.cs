@@ -6,14 +6,12 @@ namespace SunnyBuy.Views
     {
         public void ShowHome()
         {
-            Console.WriteLine("---------SunnyBuy---------");
-            Console.WriteLine("    Choose a category       ");
-            Console.WriteLine
-                ("      (1) Computers \n" +
-                 "      (2) Notebooks \n" +
-                 "      (3) Acessories \n" +
-                 "      (4) Smartphones \r\n" +
-                 "      (5) Tablets");
+            Console.WriteLine("                ____________________________________________________________________________");
+            Console.WriteLine();
+            Console.WriteLine("                -----------------------------   SunnyBuy  ----------------------------------");
+            Console.WriteLine("                ____________________________________________________________________________\n");
+            Console.WriteLine("                ------------------------  Wellcome to SunnyBuy :) --------------------------");
+            Console.WriteLine("                ____________________________________________________________________________\n");
         }
     }
 }

@@ -4,7 +4,8 @@ using System.Text;
 
 namespace SunnyBuy.Views
 {
-    public class SignUpView
+    public class UserView
     {
+
     }
 }

@@ -1,31 +1,31 @@
 ProductId;Name;Price;Detail;Quantity;Category;Rank
-1;Computador Completo Intel Core I5;2.559;Cor: Black, Memória Ram: 8GB Armazenamento:500GB;26;1;0
-2;Computador Gamer Intel Core i5 6GB;1.879;Cor: Blue, Memória Ram: 8GB Armazenamento:500GB;20;1;0
-3;Computador Gamer Intel Core i5 10GB ;2.079;Cor: Black, Memória Ram: 8GB Armazenamento:500GB;5;1;0
-4;Computador Everex Intel Celeron Dual Core 4GB 500GB Linux;2.000;Cor: Blue, Memória Ram: 8GB Armazenamento:500GB;8;1;0
-5;Computador Gamer Completo com Monitor LED Intel Core i5 8GB HD;3.500;Cor: Black, Memória Ram: 16GB Armazenamento:1TB;10;1;0
-6;Computador Gamer Completo com Monitor Full HD 21.5' ;3.559;Cor: White, Memória Ram: 16GB Armazenamento:1TB;15;1;0
-7;"Notebook Lenovo Celeron 4GB 128GB SSD Tela 15,6""";2.355;Cor: Black, Sistema operacional: Windows 10;26;2;0
-8;Notebook Acer Aspire 5 A514-53-59QJ Intel Core I5 8GB ;4.099;Cor: White, Sistema operacional: Windows 10;20;2;0
-9;Notebook Acer Core i5 8GB 512GB SSD Tela Full HD 15,6;2.333;Cor: Red, Sistema operacional: Windows 10;5;2;0
-10;Notebook Samsung Core i5 8GB 256GB SSD Iris XE G7 ;3.000;Cor: Black, Sistema operacional: Windows 10;8;2;0
-11;Notebook Compaq Pentium 4GB 120GB SSD Tela 14;2.500;Cor: Silver, Sistema operacional: Windows 10;10;2;0
-12;Notebook Asus Core i5 8GB 256GB Tela 15,6;1.500;Cor: Silver, Sistema operacional: Windows 10;15;2;0
+1;PC Complete Intel Core I5;2.559;Cor: Black, Memória Ram: 8GB Armazenamento:500GB;26;1;0
+2;PC Gamer Intel Core i5;1.879;Cor: Blue, Memória Ram: 8GB Armazenamento:500GB;20;1;0
+3;PC Gamer Intel Core i5 10GB;2.079;Cor: Black, Memória Ram: 8GB Armazenamento:500GB;5;1;0
+4;PC Everex Intel Celeron Dual Core;2.000;Cor: Blue, Memória Ram: 8GB Armazenamento:500GB;8;1;0
+5;PC Gamer w/ Monitor LED;3.500;Cor: Black, Memória Ram: 16GB Armazenamento:1TB;10;1;0
+6;PC Gamer w/ Monitor Full HD 21.5;3.559;Cor: White, Memória Ram: 16GB Armazenamento:1TB;15;1;0
+7;Notebook Lenovo Celeron 4GB 128GB;2.355;Cor: Black, Sistema operacional: Windows 10;26;2;0
+8;Notebook Acer Aspire 5 A514-53-59QJ Intel Core I5;4.099;Cor: White, Sistema operacional: Windows 10;20;2;0
+9;Notebook Acer Core i5 8GB 512GB SSD ;2.333;Cor: Red, Sistema operacional: Windows 10;5;2;0
+10;Notebook Samsung Core i5 8GB 256GB SSD;3.000;Cor: Black, Sistema operacional: Windows 10;8;2;0
+11;Notebook Compaq Pentium 4GB 120GB SSD ;2.500;Cor: Silver, Sistema operacional: Windows 10;10;2;0
+12;Notebook Asus Core i5 8GB 256GB ;1.500;Cor: Silver, Sistema operacional: Windows 10;15;2;0
 13;Teclado Gamer Pcfort Especial Para Jogos;61;Modelo: K-4503, Tipo: Gaming Keyboard;26;3;0
-14;Monitor Gamer Curvo Led 27 Concordia Full Hd Hdmi Vga Ips;1.324;Marca: Concórdia , Modelo: Monitor Gamer;20;3;0
-15;Suporte De Mesa Fone De Ouvido Headphone Headset Stand C1;49;Medidas: 8 cm Largura X 23 cm Altura X 12,6 cm Profundidade;5;3;0
-16;Fone de ouvido In-ear sem fio i12 TWS preto;40; Tempo de conversação: Cerca de 2h, Música tempo de reprodução: Cerca de 1 h ;8;3;0
-17;Suporte De Parede Fone Headset Headphone Com Fita Dupla Face;17;Marca: Concept 3D Print, Modelo:;10;3;0
-18;Suporte Ps4 Pro Fat Slim Horizontal Pezinho Ps4 Pro Fat Slim;16;Marca: Concept 3D Print, Modelo:   Horizontal Para PS4 Pro Fat Slim Pezinho;15;3;0
-19;Samsung Galaxy M31 Dual SIM 128 GB azul 6 GB RAM;1.749;Cor: Azul, Memória interna: 128GB ;26;4;0
-20;LG K22 Dual SIM 32 GB titan 2 GB RAM;4.100;Cor: Preto, Memória interna: 128GB ;20;4;0
-21;Moto G9 Play Dual SIM 64 GB rosa-quartzo 4 GB RAM;2.300;Cor: Rosa, Memória interna: 128GB ;5;4;0
-22;Samsung Galaxy M21s Dual SIM 64 GB preto 4 GB RAM;3.500;Cor: Preto, Memória interna: 128GB ;8;4;0
-23;Samsung Galaxy A32 Dual SIM 128 GB branco 4 GB RAM;1.900;Cor: Branco, Memória interna: 128GB ;10;4;0
-24;Moto G20 Dual SIM 64 GB azul 4 GB RAM;2.999;Cor: Azul, Memória interna: 128GB ;15;4;0
+14;Monitor Gamer Curvo Led 27 Concordia ;1.324;Marca: Concórdia , Modelo: Monitor Gamer;20;3;0
+15;Suporte De Mesa Fone De Ouvido ;49;Medidas: 8 cm Largura X 23 cm Altura X 12,6 cm Profundidade;5;3;0
+16;Fone de ouvido In-ear sem fio i12 TWS;40; Tempo de conversação: Cerca de 2h, Música tempo de reprodução: Cerca de 1 h ;8;3;0
+17;Suporte De Parede Fone Headset Headphone ;17;Marca: Concept 3D Print, Modelo:;10;3;0
+18;Suporte Ps4 Pro Fat Slim  Ps4 Pro Fat Slim;16;Marca: Concept 3D Print, Modelo:   Horizontal Para PS4 Pro Fat Slim Pezinho;15;3;0
+19;Samsung Galaxy M31 Dual SIM 128 ;1.749;Cor: Azul, Memória interna: 128GB ;26;4;0
+20;LG K22 Dual SIM 32 GB titan;4.100;Cor: Preto, Memória interna: 128GB ;20;4;0
+21;Moto G9 Play Dual SIM 64 GB;2.300;Cor: Rosa, Memória interna: 128GB ;5;4;0
+22;Samsung Galaxy M21s Dual SIM ;3.500;Cor: Preto, Memória interna: 128GB ;8;4;0
+23;Samsung Galaxy A32 Dual SIM;1.900;Cor: Branco, Memória interna: 128GB ;10;4;0
+24;Moto G20 Dual SIM 64 GB ;2.999;Cor: Azul, Memória interna: 128GB ;15;4;0
 25;Tablet Multilaser M7S ;1600;Cor: Preto, Marca:  Multilaser;26;5;0
 26;Tablet Samsung Galaxy Tab A7 ;2999;Cor: Preto, Marca: Samsung;20;5;0
 27;Tablet Samsung Galaxy Tab A ;2500;Cor: Preto, Marca: Samsung;5;5;0
-28;"Tablet Positivo Twist Tab Kids T770K 7"" ";1800;Cor: Preto, Marca: Positivo;8;5;0
+28;Tablet Positivo Twist Tab ;1800;Cor: Preto, Marca: Positivo;8;5;0
 29;Tablet Samsung Galaxy Tab S6 ;3000;Cor: Cinza, Marca: Samsung;10;5;0
 30;Tablet Samsung Galaxy Tab A ;2400;Cor: Preto, Marca: Samsung;15;5;0

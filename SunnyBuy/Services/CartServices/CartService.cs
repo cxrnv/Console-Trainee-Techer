@@ -30,6 +30,7 @@ namespace SunnyBuy.Services.CartServices
             model.ProductId = productId;
             model.DateInclude = DateTime.Now;
             model.Deleted = false;
+            model.UserId = 1;
 
             return cart.PostCartEntity(model);
         }
@@ -37,7 +38,7 @@ namespace SunnyBuy.Services.CartServices
         public List<ListModel> ShowProductsCart()
         {
             var carts = cart.CartsList()
-                                .Where(a => !a.Deleted)
+                                .Where(a => a.UserId == a.UserId && !a.Deleted)
                                 .Select(b => new
                                 {
                                     b.CartId,

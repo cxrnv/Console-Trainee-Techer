@@ -37,8 +37,8 @@ namespace SunnyBuy.Entitities
                         var cart = new CartEntitie();
 
                         cart.CartId = int.Parse(fields[0]);
-                        cart.UserId = int.Parse(fields[1]);
-                        cart.ProductId = int.Parse(fields[2]);
+                        cart.ProductId = int.Parse(fields[1]);
+                        cart.UserId = int.Parse(fields[2]);
                         cart.DateInclude = DateTime.Parse(fields[3]);
                         cart.Deleted = bool.Parse(fields[4]);
 

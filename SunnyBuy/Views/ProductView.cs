@@ -1,18 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SunnyBuy.Services.ProductsServices.Models;
 
 namespace SunnyBuy.Views
 {
     public class ProductView
     {
-        ProductsModel productsModel = new ProductsModel();
-
         public void ShowProductCartView()
         {
             Console.Clear();
             Console.WriteLine("  __________________________________________________");
+        }
+
+        public void CardProductCategory(string category)
+        {
+            Console.WriteLine("            ____________________________________________________");
+            Console.WriteLine();
+            Console.WriteLine($"                                 Home > Category ");
+            Console.WriteLine("            ____________________________________________________");
+            Console.WriteLine();
+            Console.WriteLine($"            ---------------------- {category} -------------------");
+            Console.WriteLine("            ____________________________________________________");
+            Console.WriteLine();
         }
     }
 }

@@ -1,6 +1,1 @@
-UserId;Name;Email;Password;Address;Phone
- ; ; ; ; ;
- ; ; ; ; ;
- ; ; ; ; ;
- ; ; ; ; ;
- ; ; ; ; ;
+UserId;Name;Email;Address;Cpf;Phone;Payment;
