@@ -11,8 +11,8 @@ namespace SunnyBuy
             HomeView homeView = new HomeView();
 
             homeView.ShowHome();
-            Console.WriteLine("");
-            productsView.ProductsCategoryView();
+            Console.WriteLine();
+            productsView.ProductsPageView();
         }
     }
 }

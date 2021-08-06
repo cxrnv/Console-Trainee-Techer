@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SunnyBuy.Views
+namespace SunnyBuy.Entitities.DB
 {
-    public class UserView
+    class PurchaseDB
     {
-
     }
 }

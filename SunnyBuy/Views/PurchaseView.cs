@@ -1,141 +1,204 @@
-﻿using SunnyBuy.Entitities;
-using SunnyBuy.Enums;
-using SunnyBuy.Services.CartServices;
-using SunnyBuy.Services.PurchaseServices;
-using System;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System;
+using SunnyBuy.Services.UsersServices;
+using SunnyBuy.Services.UsersServices.Models;
 
 namespace SunnyBuy.Views
 {
     public class PurchaseView
     {
         CartView cartView = new CartView();
-        UserEntitie user = new UserEntitie();
-        PaymentType payment = new PaymentType();
-        CartService cartService = new CartService();
-        Regex regex = new Regex(@"^[A-z][A-z|\.|\s]+$");
-        PurchaseService purchaseService = new PurchaseService();
+        HomeView homeView = new HomeView();
+        UserService userService = new UserService();
+        ProductsView productsView = new ProductsView();
+
         public void PurchaseRegisterView()
         {
-            Console.WriteLine("___________________________________________________________________________________________________");
-            Console.WriteLine();
-            Console.WriteLine("------------------------------------------    Purchase   ------------------------------------------");
-            Console.WriteLine("___________________________________________________________________________________________________\n");
-            Console.WriteLine("------------------------------------------ R E G I S T E R ----------------------------------------\n");
-            Console.WriteLine("--------------------------------------------   U S E R  -------------------------------------------\n");
-
-            Console.Write("*           Name: ");
-            var name = Console.ReadLine();
-
-            /*
-            bool nameValidate()
-            {
-                bool valid = regex.IsMatch(tB_UserName.Text);
-
-                string errorMessage = valid ? string.Empty : "Please enter valid name";
-
-                errorProvider1.SetError(tB_UserName, errorMessage);
-
-                return valid;
-            }*/
-
-            Console.WriteLine();
-
-            Console.Write("*           E mail: ");
-            var email = Console.ReadLine();
-
-            bool emailValidate(string email)
-            {
-                try
-                {
-                    var addr = new System.Net.Mail.MailAddress(email);
-                    return addr.Address == email;
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-            Console.WriteLine();
-
-            Console.Write("*           Type the address: ");
-            var address = Console.ReadLine();
-            Console.WriteLine();
-
-            Console.Write("*           Type the number phone: ");
-            var phone = Console.ReadLine();
-            Console.WriteLine();
-
             Console.WriteLine("           Payment types: \n" +
-                "                        (1) CreditCard \n" +
-                "                        (2) Billet \n" +
-                "                        (3) Pix");
+                "                         (1) CreditCard \n" +
+                "                         (2) Billet \n" +
+                "                         (3) Pix");
 
             Console.WriteLine();
             Console.Write("           Choose the payment type: ");
-            PaymentType payment = Enum.Parse<PaymentType>(Console.ReadLine());
+            var payment = Console.ReadLine();
             Console.WriteLine();
 
-            Console.WriteLine("Confirm purchase ?");
+            Console.Write("           Confirm purchase ? y/n ");
             var confirm_purchase = Console.ReadLine();
 
             switch (confirm_purchase)
             {
                 case "y":
                     Console.Clear();
-                    PurchaseComplete();
+                    PurchaseCompleteNav();
 
-                    if (emailValidate(email))
+                    switch (payment)
                     {
-                        Console.WriteLine($"        { name}                              Payment type {payment}\n");
-                        Console.WriteLine($"        {email}\n");
-                        Console.WriteLine($"        {address}\n");
-
-                        var cart = cartService.ShowProductsCart();
-                        var total = cart.Sum(a => a.Price);
-
-                        cart.ForEach
-                         (
-                         a =>
-                             Console.WriteLine
-                             (
-                                 $"        {a.Name} " +
-                                 $"        R${ a.Price}\n"
-                             )
-                         );
-                        Console.WriteLine("       ------------------------------------------------------------------------------------------");
-                        Console.WriteLine($"                                                                                    Total: R${total}");
-                        Console.WriteLine("       ------------------------------------------------------------------------------------------");
-                    }else
-                    {
-                        PurchaseRegisterView();
+                        case "1":
+                            CreditCardView();
+                            break;
+                        case "2":
+                            Console.Clear();
+                            BilletView();
+                            break;
+                        case "3":
+                            Console.Clear();
+                            PixView();
+                            break;
+                        default:
+                            break;
                     }
+
+                    switch (payment)
+                    {
+                        case "1":
+                            payment = " (Credit Card)";
+                            Console.WriteLine($" ");
+                            break;
+                        case "2":
+                            payment = "(Billet)";
+                            break;
+                        case "3":
+                            payment = "(Pix)";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    PurchaseCompleteNav();
+                    Console.WriteLine("Type your cpf: ");
+                    var cpf = Console.ReadLine();
+                    var userr = userService.GetUsers(cpf);
+
+                    userr.ForEach
+                        (
+                          u =>
+                          Console.WriteLine
+                          ($"        {u.Name}" +
+                           $"        {u.Email}" +
+                           $"        {u.Phone}" +
+                           $"        {u.Address}")
+                        );
+                    Console.WriteLine($"        Payment Type: {payment}\n");
+                    Console.WriteLine("       ___________________________________________________________________________________________________\n");
+                    Console.WriteLine();
+
+                    cartView.ProductsCart();
+
+                    GoHome();
                     break;
                 case "n":
                     cartView.ShowCart();
                     break;
+                default:
+                    cartView.ShowCart();
+                    break;
+            }
+        }
+
+        public void GoHome()
+        {
+            Console.Write("                                          Go to the home page ? y/n ");
+            var awnserHome = Console.ReadLine().ToUpper();
+
+            switch (awnserHome)
+            {
+                case "Y":
+                    Console.Clear();
+                    homeView.ShowHome();
+                    Console.WriteLine("");
+                    productsView.ProductsPageView();
+                    break;
+                default:
+                    Console.WriteLine("                                          Thanks for buying in SunnyBuy :) ");
+                    Environment.Exit(0);
+                    break;
+            }
+        }
+
+        public void CreditCardView()
+        {
+            CreditCardModel model = new CreditCardModel();
+
+            Console.WriteLine("       ___________________________________________________________________________________________________");
+            Console.WriteLine();
+            Console.WriteLine("       ---------------------------------------    Add Credit Card  --------------------------------------");
+            Console.WriteLine("       ___________________________________________________________________________________________________\n");
+            Console.Write("       Card number *");
+            model.Number = Console.ReadLine();
+            Console.WriteLine("       ___________________________________________________________________________________________________");
+
+            Console.Write("       Expiry (MM/YY) *");
+            model.Expiry = Console.ReadLine();
+            Console.WriteLine("       ___________________________________________________________________________________________________");
+
+            Console.Write("       Card code *");
+            model.Code = Console.ReadLine();
+            Console.WriteLine("       ___________________________________________________________________________________________________");
+
+            Console.Write("                                               Confirm payment ? y/n ");
+            var a = Console.ReadLine().ToUpper();
+
+            while (a != "Y")
+            {
+                Console.Write("                                           *Confirm payment ? y/n ");
+                a = Console.ReadLine();
             }
 
-            
-               purchaseService.User( name, email, address, phone, payment);
-            
-           
+            Console.Clear();
         }
-        public void CreditCardView()
+
+        public void BilletView()
         {
             Console.WriteLine("       ___________________________________________________________________________________________________");
             Console.WriteLine();
-            Console.WriteLine("       ---------------------------------------    Purchase Complete  --------------------------------------");
+            Console.WriteLine("       -------------------------------------------    Billet  -------------------------------------------");
             Console.WriteLine("       ___________________________________________________________________________________________________\n");
+            Console.WriteLine();
+            Random code = new Random();
+            int billetCode = code.Next(999999999);
+            Console.WriteLine($"       +                Billet Code: |||||||||||||| {billetCode} {billetCode} ||||||||||||||");
+            Console.WriteLine("       ___________________________________________________________________________________________________");
+            Console.WriteLine();
+
+            Console.Write("                                               Confirm payment ? y/n ");
+            var a = Console.ReadLine().ToUpper();
+
+            while (a != "Y")
+            {
+                Console.Write("                                           *Confirm payment ? y/n");
+                a = Console.ReadLine();
+            }
+
+            Console.Clear();
         }
 
-        public void Billet()
+        public void PixView()
         {
+            Console.WriteLine("       ___________________________________________________________________________________________________");
+            Console.WriteLine();
+            Console.WriteLine("       -------------------------------------------    Pix  -------------------------------------------");
+            Console.WriteLine("       ___________________________________________________________________________________________________\n");
+            Console.WriteLine();
+            Random code = new Random();
+            int pixCode = code.Next(999999999);
+            Console.WriteLine($"       +                Billet Code: {pixCode} 416997954 316515200 786516544");
+            Console.WriteLine();
+            Console.WriteLine("       ___________________________________________________________________________________________________\n");
 
+            Console.Write("                                               Confirm payment ? y/n ");
+            var a = Console.ReadLine().ToUpper();
+
+            while (a != "Y")
+            {
+                Console.Write("                                           *Confirm payment ? y/n ");
+                a = Console.ReadLine();
+            }
+
+            Console.Clear();
         }
 
-        public void PurchaseComplete()
+        public void PurchaseCompleteNav()
         {
             Console.WriteLine("       ___________________________________________________________________________________________________");
             Console.WriteLine();

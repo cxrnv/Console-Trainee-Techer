@@ -1,6 +1,6 @@
-﻿using SunnyBuy.Services.CartServices;
-using SunnyBuy.Services.CartServices.Models;
-using System;
+﻿using System;
+using System.Linq;
+using SunnyBuy.Services.CartServices;
 
 namespace SunnyBuy.Views
 {
@@ -8,60 +8,69 @@ namespace SunnyBuy.Views
     {
         HomeView homeView = new HomeView();
         CartService cartService = new CartService();
+        ProductsView productsView = new ProductsView();
+
         public void ShowCart()
         {
-            ProductsView productsView = new ProductsView();
+            Console.Clear();
+            Console.WriteLine("       ___________________________________________________________________________________________________");
+            Console.WriteLine();
+            Console.WriteLine("       ------------------------------------------     Cart       -----------------------------------------");
+            Console.WriteLine("       ___________________________________________________________________________________________________");
+            Console.WriteLine();
 
-            Console.WriteLine("___________________________________________________________________________________________________");
+            ProductsCart();
+
+            Console.WriteLine(
+                "                                              (1) Go to the Home \n \n" +
+                "                                              (2) Buy now \n" +
+                "                                              _________________"
+                );
             Console.WriteLine();
-            Console.WriteLine("------------------------------------------     Cart       -----------------------------------------");
-            Console.WriteLine("___________________________________________________________________________________________________");
-            Console.WriteLine();
+            Console.Write("                                              Choose a option: ");
+            var awnser = Convert.ToInt32(Console.ReadLine());
+
+            CartOptions(awnser);
+        }
+
+        public void ProductsCart()
+        {
             var cart = cartService.ShowProductsCart();
+            var total = cart.Sum(a => a.Price);
+
             cart.ForEach
                 (
                 a =>
                     Console.WriteLine
                     (
-                        $" +                     {a.Name} " +
+                        $"       +           {a.Name} " +
                         $" ------------ R${ a.Price}\n"
                     )
                 );
 
-            Console.WriteLine(
-                "                       (1) Go to the Home \n" +
-                "                       (2) Delete cart \n" +
-                "                       (3) Buy now "
-                );
-            Console.WriteLine();
-            Console.Write("                       Choose a option: ");
-            var awnser = Convert.ToInt32(Console.ReadLine());
-
+            Console.WriteLine($"       -----------------------------------------------------------------------------   TOTAL:   R${total} \n");
+        }
+    
+        public void CartOptions(int awnser)
+        {
             switch (awnser)
             {
                 case 1:
                     Console.Clear();
                     homeView.ShowHome();
                     Console.WriteLine();
-                    productsView.ProductsCategoryView();
+                    productsView.ProductsPageView();
                     break;
                 case 2:
-                    Console.Write("                       Choose a cart element: ");
-                    var cartIndex = Convert.ToInt32(Console.ReadLine());
-
-                    var teste = new PutModel();
-
-                    teste.CartId = cart[cartIndex].CartId;
-                    teste.Deleted = true;
-
-                    cartService.PutProductCart(teste);
-                    break;
-                case 3:
                     PurchaseView purchaseView = new PurchaseView();
                     Console.Clear();
                     purchaseView.PurchaseRegisterView();
                     break;
+                default:
+                    Console.Clear();
+                    ShowCart();
+                    break;
             }
-        }    
+        }
     }
 }

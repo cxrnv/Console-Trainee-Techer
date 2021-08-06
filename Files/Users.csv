@@ -1,1 +1,2 @@
-UserId;Name;Email;Address;Cpf;Phone;Payment;
+UserId;Cpf;Name;Email;Address;Phone
+1;12168941912;De;ferreiraarobed@gmail.com;Julio gRAF 19 ;999360344

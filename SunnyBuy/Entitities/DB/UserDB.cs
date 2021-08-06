@@ -1,10 +1,11 @@
-﻿using SunnyBuy.Enums;
-using SunnyBuy.Services.UsersServices.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Text;
+using SunnyBuy.Enums;
+using System.Collections.Generic;
+using SunnyBuy.Services.UsersServices.Models;
+using SunnyBuy.Services.UsersServices;
 
 namespace SunnyBuy.Entitities.DB
 {
@@ -13,6 +14,7 @@ namespace SunnyBuy.Entitities.DB
         string path = @"C:\Users\debora.maciel\Desktop\Techer Projects C#\SunnyBuy\Files\Users.csv";
 
         string header = "";
+
         public List<UserEntitie> UsersList()
         {
             List<UserEntitie> usersList = new List<UserEntitie>();
@@ -25,20 +27,19 @@ namespace SunnyBuy.Entitities.DB
 
                 carts.Skip(1)
                     .ToList()
-                    .ForEach(p => {
+                    .ForEach(p =>
+                    {
 
                         var fields = p.Split(';');
 
                         var user = new UserEntitie();
 
                         user.UserId = int.Parse(fields[0]);
-                        user.Name = (fields[1]);
-                        user.Email = (fields[2]);
-                        user.Address = (fields[3]);
-                        user.Phone = (fields[4]);
-
-                        Enum.TryParse(fields[5], out PaymentType payment);
-                        user.Payment = payment;
+                        user.Cpf = (fields[1]);
+                        user.Name = (fields[2]);
+                        user.Email = (fields[3]);
+                        user.Address = (fields[4]);
+                        user.Phone = (fields[5]);
 
                         usersList.Add(user);
                     });
@@ -52,7 +53,7 @@ namespace SunnyBuy.Entitities.DB
             return usersList;
         }
 
-        public bool PostUserEntity(PostModel model)
+        public bool PostUserEntity(ListModel model)
         {
             try
             {
@@ -61,10 +62,10 @@ namespace SunnyBuy.Entitities.DB
                 var modelEntity = new UserEntitie();
 
                 modelEntity.UserId = users.Count() + 1;
+                modelEntity.Cpf = model.Cpf;
                 modelEntity.Name = model.Name;
                 modelEntity.Email = model.Email;
                 modelEntity.Address = model.Address;
-                modelEntity.Cpf = model.Cpf;
                 modelEntity.Phone = model.Phone;
 
                 users.Add(modelEntity);
@@ -75,7 +76,16 @@ namespace SunnyBuy.Entitities.DB
 
                 foreach (var item in users)
                 {
-                    var aux = new string[] { item.UserId.ToString(), item.Name.ToString(), item.Email.ToString(), item.Address.ToString(), item.Phone.ToString() };
+                    var aux = new string[] 
+                    { 
+                        item.UserId.ToString(), 
+                        item.Cpf.ToString(), 
+                        item.Name.ToString(), 
+                        item.Email.ToString(), 
+                        item.Address.ToString(), 
+                        item.Phone.ToString() 
+                    };
+
                     lines.Add(String.Join(";", aux));
                 }
 

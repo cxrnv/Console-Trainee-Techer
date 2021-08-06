@@ -1,18 +1,19 @@
-﻿using SunnyBuy.Entitities;
-using SunnyBuy.Services.CartServices.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
+using SunnyBuy.Services.CartServices.Models;
+using System.Collections.Generic;
+using SunnyBuy.Entitities.DB;
 
 namespace SunnyBuy.Services.CartServices
 {
     public class CartService
     {
-        ProductEntitie product = new ProductEntitie();
-        CartEntitie cart = new CartEntitie();
+        CartDB cart = new CartDB();
+        ProductDB product = new ProductDB();
+
         public List<ListModel> GetProductsCart(int productId)
         {
-            return product.ProductsList()
+            return product.ProductsListDB()
                 .Where(a => a.ProductId == productId)
                 .Select(c => new ListModel
                 {
@@ -37,7 +38,7 @@ namespace SunnyBuy.Services.CartServices
 
         public List<ListModel> ShowProductsCart()
         {
-            var carts = cart.CartsList()
+            var carts = cart.CartsListDB()
                                 .Where(a => a.UserId == a.UserId && !a.Deleted)
                                 .Select(b => new
                                 {
@@ -47,7 +48,7 @@ namespace SunnyBuy.Services.CartServices
                                 })
                                 .ToList();
 
-            var products = product.ProductsList()
+            var products = product.ProductsListDB()
                 .Where(a => carts.Any(c => c.ProductId == a.ProductId))
                 .Select(b => new ListModel
                 {
