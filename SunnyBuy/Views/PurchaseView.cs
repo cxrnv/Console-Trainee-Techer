@@ -13,6 +13,11 @@ namespace SunnyBuy.Views
 
         public void PurchaseRegisterView()
         {
+            Console.WriteLine("       ___________________________________________________________________________________________________");
+            Console.WriteLine();
+            Console.WriteLine("       -----------------------------------------    Payment Type   ---------------------------------------");
+            Console.WriteLine("       ___________________________________________________________________________________________________\n");
+
             Console.WriteLine("           Payment types: \n" +
                 "                         (1) CreditCard \n" +
                 "                         (2) Billet \n" +
@@ -66,18 +71,20 @@ namespace SunnyBuy.Views
                     }
 
                     PurchaseCompleteNav();
-                    Console.WriteLine("Type your cpf: ");
+                    Console.Write("       * Type your cpf: ");
                     var cpf = Console.ReadLine();
+                    Console.WriteLine("       ---------------------------------------------------------------------------------------------------");
+
                     var userr = userService.GetUsers(cpf);
 
                     userr.ForEach
-                        (
+                        (                            
                           u =>
                           Console.WriteLine
-                          ($"        {u.Name}" +
-                           $"        {u.Email}" +
-                           $"        {u.Phone}" +
-                           $"        {u.Address}")
+                          ($"        {u.Name}\n \n" +
+                           $"        {u.Email}\n \n" +
+                           $"        {u.Phone}\n \n" +
+                           $"        Send to: {u.Address}\n")
                         );
                     Console.WriteLine($"        Payment Type: {payment}\n");
                     Console.WriteLine("       ___________________________________________________________________________________________________\n");
@@ -110,6 +117,8 @@ namespace SunnyBuy.Views
                     productsView.ProductsPageView();
                     break;
                 default:
+                    Console.Clear();
+                    Console.WriteLine();
                     Console.WriteLine("                                          Thanks for buying in SunnyBuy :) ");
                     Environment.Exit(0);
                     break;

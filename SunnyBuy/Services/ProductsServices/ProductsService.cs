@@ -24,6 +24,19 @@ namespace SunnyBuy.Services.ProductsServices
                 }).ToList();
         }
 
+        public List<ProductsModel> Search()
+        {
+            var products = product.ProductsListDB()
+              .Select(p => new ProductsModel
+              {
+                  ProductId = p.ProductId,
+                  Name = p.Name,
+                  Price = p.Price
+              }).ToList();
+
+            return products;
+        }
+
         public GetModel GetProduct(int productId)
         {
             return product.ProductsListDB()

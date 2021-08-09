@@ -15,9 +15,7 @@ namespace SunnyBuy.Views
 
             Console.WriteLine("       ___________________________________________________________________________________________________\n");
             Console.WriteLine("       ------------------------------------------------  SignUp ------------------------------------------\n");
-
-            Console.Write("       *           Id: ");
-            user.UserId = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("       ___________________________________________________________________________________________________\n");
 
             Console.Write("       *           Cpf: ");
             user.Cpf = Console.ReadLine();
@@ -80,7 +78,7 @@ namespace SunnyBuy.Views
                     break;
                 case "n":
                     Console.WriteLine();
-                    Console.WriteLine("                   Go the home page ? y/n - ");
+                    Console.WriteLine("                   Go the home page ? y/n - \n");
                     var awnserHomePage = Console.ReadLine().ToLower();
 
                     switch (awnserHomePage)
@@ -92,6 +90,7 @@ namespace SunnyBuy.Views
                             products.ProductsPageView();
                             break;
                         default:
+                            Console.Clear();
                             Console.WriteLine("                   Thanks for choosing SunnyBuy :)");
                             break;
                     }

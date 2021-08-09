@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using SunnyBuy.Entitities.DB;
 using SunnyBuy.Services.CartServices;
 
 namespace SunnyBuy.Views

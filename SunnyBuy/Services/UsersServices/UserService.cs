@@ -13,11 +13,11 @@ namespace SunnyBuy.Services.UsersServices
         public List<ListModel> GetUsers(string cpf)
         {
             return users.UsersList()
-                .Where(a => a.Cpf == cpf)
+                .Where(a => a.UserCpf == cpf)
                 .Select(c => new ListModel
                 {
                     UserId = c.UserId,
-                    Cpf = c.Cpf,
+                    Cpf = c.UserCpf,
                     Name = c.Name,
                     Email = c.Email,
                     Address = c.Address,
@@ -63,7 +63,7 @@ namespace SunnyBuy.Services.UsersServices
                     Name = b.Name,
                     Email = b.Email,
                     Address = b.Address,
-                    Cpf = b.Cpf,
+                    Cpf = b.UserCpf,
                     Phone = b.Phone
                 }
                 ).ToList();

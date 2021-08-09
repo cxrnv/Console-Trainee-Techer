@@ -9,6 +9,8 @@ namespace SunnyBuy.Views
         public void ShowLoginView()
         {
             UserService userService = new UserService();
+            SignUpView signUp = new SignUpView();
+
             var user = new LoginModel();
 
             Console.WriteLine("       ___________________________________________________________________________________________________");
@@ -50,11 +52,30 @@ namespace SunnyBuy.Views
                         userP.Password += keyInfo.KeyChar;
                     }
                 } while (key != ConsoleKey.Enter);
+                HomeView homeView = new HomeView();
+                ProductsView productsView = new ProductsView();
+
+                Console.Clear();
+                homeView.ShowHome();
+                productsView.ProductsPageView();
             }
             else
             {
-                Console.WriteLine("                   This email doesnt exist.");
-                Console.WriteLine("                   Sign Up ?");
+                Console.WriteLine("                   This email doesnt exist. \n");
+                Console.Write("                   Sign Up ? y/n ");
+                var awnserSignUp = Console.ReadLine().ToLower();
+
+                switch (awnserSignUp)
+                {
+                    case "y":
+                        Console.Clear();
+                        signUp.ShowSignUpView();
+                        break;
+                    case "n":
+                        break;
+                    default:
+                        break;
+                }
             }
 
         }

@@ -35,7 +35,7 @@ namespace SunnyBuy.Entitities.DB
                         var user = new UserEntitie();
 
                         user.UserId = int.Parse(fields[0]);
-                        user.Cpf = (fields[1]);
+                        user.UserCpf = (fields[1]);
                         user.Name = (fields[2]);
                         user.Email = (fields[3]);
                         user.Address = (fields[4]);
@@ -62,7 +62,7 @@ namespace SunnyBuy.Entitities.DB
                 var modelEntity = new UserEntitie();
 
                 modelEntity.UserId = users.Count() + 1;
-                modelEntity.Cpf = model.Cpf;
+                modelEntity.UserCpf = model.Cpf;
                 modelEntity.Name = model.Name;
                 modelEntity.Email = model.Email;
                 modelEntity.Address = model.Address;
@@ -79,7 +79,7 @@ namespace SunnyBuy.Entitities.DB
                     var aux = new string[] 
                     { 
                         item.UserId.ToString(), 
-                        item.Cpf.ToString(), 
+                        item.UserCpf.ToString(), 
                         item.Name.ToString(), 
                         item.Email.ToString(), 
                         item.Address.ToString(), 

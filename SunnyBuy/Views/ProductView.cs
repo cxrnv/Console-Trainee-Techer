@@ -38,11 +38,7 @@ namespace SunnyBuy.Views
 
             switch (awnser)
             {
-                case "Y":/*
-                    PurchaseView purchaseView = new PurchaseView();
-                    Console.Clear();
-                    purchaseView.PurchaseRegisterView();
-                    */
+                case "Y":
                     if (cartService.PostProductCart(id))
                         Console.WriteLine("                                      Added with success!  ");
                     else
