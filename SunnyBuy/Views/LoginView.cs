@@ -8,7 +8,7 @@ namespace SunnyBuy.Views
     {
         public void ShowLoginView()
         {
-            UserService userService = new UserService();
+            ClientService userService = new ClientService();
             SignUpView signUp = new SignUpView();
 
             var user = new LoginModel();

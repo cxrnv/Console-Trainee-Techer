@@ -1,9 +1,9 @@
-﻿using SunnyBuy.Services.CartServices.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Collections.Generic;
+using SunnyBuy.Services.CartServices.Models;
 
 namespace SunnyBuy.Entitities.DB
 {
@@ -13,9 +13,9 @@ namespace SunnyBuy.Entitities.DB
 
         string header = "";
 
-        public List<CartEntitie> CartsListDB()
+        public List<Cart> CartsListDB()
         {
-            List<CartEntitie> cartsList = new List<CartEntitie>();
+            List<Cart> cartsList = new List<Cart>();
 
             try
             {
@@ -29,11 +29,11 @@ namespace SunnyBuy.Entitities.DB
 
                         var fields = p.Split(';');
 
-                        var cart = new CartEntitie();
+                        var cart = new Cart();
 
                         cart.CartId = int.Parse(fields[0]);
                         cart.ProductId = int.Parse(fields[1]);
-                        cart.UserId = int.Parse(fields[2]);
+                        cart.ClientId = int.Parse(fields[2]);
                         cart.DateInclude = DateTime.Parse(fields[3]);
                         cart.Deleted = bool.Parse(fields[4]);
 
@@ -54,11 +54,11 @@ namespace SunnyBuy.Entitities.DB
             {
                 var carts = CartsListDB();
 
-                var modelEntity = new CartEntitie();
+                var modelEntity = new Cart();
 
                 modelEntity.CartId = carts.Count() + 1;
                 modelEntity.ProductId = model.ProductId;
-                modelEntity.UserId = model.UserId;
+                modelEntity.ClientId = model.UserId;
                 modelEntity.DateInclude = model.DateInclude;
                 modelEntity.Deleted = model.Deleted;
 
@@ -70,7 +70,7 @@ namespace SunnyBuy.Entitities.DB
 
                 foreach (var item in carts)
                 {
-                    var aux = new string[] { item.CartId.ToString(), item.ProductId.ToString(), item.UserId.ToString(), item.DateInclude.ToString(), item.Deleted.ToString() };
+                    var aux = new string[] { item.CartId.ToString(), item.ProductId.ToString(), item.ClientId.ToString(), item.DateInclude.ToString(), item.Deleted.ToString() };
                     lines.Add(String.Join(";", aux));
                 }
 
@@ -99,7 +99,7 @@ namespace SunnyBuy.Entitities.DB
 
                 foreach (var item in carts)
                 {
-                    var aux = new string[] { item.CartId.ToString(), item.ProductId.ToString(), item.UserId.ToString(), item.DateInclude.ToString(), item.Deleted.ToString() };
+                    var aux = new string[] { item.CartId.ToString(), item.ProductId.ToString(), item.ClientId.ToString(), item.DateInclude.ToString(), item.Deleted.ToString() };
                     lines.Add(String.Join(";", aux));
                 }
 

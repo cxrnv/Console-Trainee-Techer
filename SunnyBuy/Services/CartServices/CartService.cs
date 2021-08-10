@@ -8,13 +8,20 @@ namespace SunnyBuy.Services.CartServices
 {
     public class CartService
     {
+        protected readonly SunnyBuy.Context.Context context;
+
+        public CartService(SunnyBuy.Context.Context context)
+        {
+            this.context = context;
+        }
+
         CartDB cart = new CartDB();
         ProductDB product = new ProductDB();
 
-        public List<ListModel> ShowProductsCart2(int clientId)
+        /*public List<ListModel> ShowProductsCart2(int clientId)
         {
             var carts = cart.CartsListDB()
-          .Where(a => clientId == a.UserId && !a.Deleted)
+          .Where(a => clientId == a.ClientId && !a.Deleted)
           .Select(b => new
           {
               b.CartId,
@@ -42,24 +49,28 @@ namespace SunnyBuy.Services.CartServices
             }
 
             return products;
-        }
+        }*/
 
         public bool PostProductCart(int productId)
         {
-            var model = new PostModel();
+            var model = new Entitities.Cart()
+            {
+                
+            };
 
+            /*
             model.ProductId = productId;
             model.DateInclude = DateTime.Now;
             model.Deleted = false;
             model.UserId = 1;
 
-            return cart.PostCartEntity(model);
+            return context.Cart.Add(model);*/
         }
 
         public List<ListModel> ShowProductsCart()
         {
             var carts = cart.CartsListDB()
-                                .Where(a => a.UserId == a.UserId && !a.Deleted)
+                                .Where(a => a.ClientId == a.ClientId && !a.Deleted)
                                 .Select(b => new
                                 {
                                     b.CartId,

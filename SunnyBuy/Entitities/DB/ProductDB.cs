@@ -14,11 +14,11 @@ namespace SunnyBuy.Entitities.DB
 
         }
 
-        public List<ProductEntitie> ProductsListDB()
+        public List<Product> ProductsListDB()
         {
             string path = @"C:\Users\debora.maciel\Desktop\Techer Projects C#\SunnyBuy\Files\Products.csv";
 
-            List<ProductEntitie> productsListDB = new List<ProductEntitie>();
+            List<Product> productsListDB = new List<Product>();
 
             try
             {
@@ -30,7 +30,7 @@ namespace SunnyBuy.Entitities.DB
 
                         var fields = p.Split(';');
 
-                        var product = new ProductEntitie();
+                        var product = new Product();
                         product.ProductId = int.Parse(fields[0]);
                         product.Name = fields[1];
                         product.Price = float.Parse(fields[2]);

@@ -10,7 +10,7 @@ namespace SunnyBuy.Views
         LoginView loginView = new LoginView();
         public void ShowSignUpView()
         {
-            UserService userService = new UserService();
+            ClientService userService = new ClientService();
             var user = new ListModel();
 
             Console.WriteLine("       ___________________________________________________________________________________________________\n");

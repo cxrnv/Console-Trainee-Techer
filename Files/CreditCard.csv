@@ -1,1 +1,1 @@
-CreditCardId;Operator;Number;DueDate;SecurityCode;UserCpf
+CreditCardId;Operator;Number;DueDate;SecurityCode;ClientCpf

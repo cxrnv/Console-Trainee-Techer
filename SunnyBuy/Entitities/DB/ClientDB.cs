@@ -9,15 +9,15 @@ using SunnyBuy.Services.UsersServices;
 
 namespace SunnyBuy.Entitities.DB
 {
-    public class UserDB
+    public class ClientDB
     {
-        string path = @"C:\Users\debora.maciel\Desktop\Techer Projects C#\SunnyBuy\Files\Users.csv";
+        string path = @"C:\Users\debora.maciel\Desktop\Techer Projects C#\SunnyBuy\Files\Client.csv";
 
         string header = "";
 
-        public List<UserEntitie> UsersList()
+        public List<Client> ClientsList()
         {
-            List<UserEntitie> usersList = new List<UserEntitie>();
+            List<Client> usersList = new List<Client>();
 
             try
             {
@@ -27,15 +27,16 @@ namespace SunnyBuy.Entitities.DB
 
                 carts.Skip(1)
                     .ToList()
-                    .ForEach(p =>
+                    .ForEach(
+                    c =>
                     {
 
-                        var fields = p.Split(';');
+                        var fields = c.Split(';');
 
-                        var user = new UserEntitie();
+                        var user = new Client();
 
-                        user.UserId = int.Parse(fields[0]);
-                        user.UserCpf = (fields[1]);
+                        user.ClientId = int.Parse(fields[0]);
+                        user.ClientCpf = (fields[1]);
                         user.Name = (fields[2]);
                         user.Email = (fields[3]);
                         user.Address = (fields[4]);
@@ -57,29 +58,29 @@ namespace SunnyBuy.Entitities.DB
         {
             try
             {
-                var users = UsersList();
+                var clients = ClientsList();
 
-                var modelEntity = new UserEntitie();
+                var modelEntity = new Client();
 
-                modelEntity.UserId = users.Count() + 1;
-                modelEntity.UserCpf = model.Cpf;
+                modelEntity.ClientId = clients.Count() + 1;
+                modelEntity.ClientCpf = model.Cpf;
                 modelEntity.Name = model.Name;
                 modelEntity.Email = model.Email;
                 modelEntity.Address = model.Address;
                 modelEntity.Phone = model.Phone;
 
-                users.Add(modelEntity);
+                clients.Add(modelEntity);
 
                 var lines = new List<string>();
 
                 lines.Add(header);
 
-                foreach (var item in users)
+                foreach (var item in clients)
                 {
                     var aux = new string[] 
                     { 
-                        item.UserId.ToString(), 
-                        item.UserCpf.ToString(), 
+                        item.ClientId.ToString(), 
+                        item.ClientCpf.ToString(), 
                         item.Name.ToString(), 
                         item.Email.ToString(), 
                         item.Address.ToString(), 

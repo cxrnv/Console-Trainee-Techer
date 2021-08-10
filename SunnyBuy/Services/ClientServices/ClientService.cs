@@ -5,19 +5,19 @@ using SunnyBuy.Services.UsersServices.Models;
 
 namespace SunnyBuy.Services.UsersServices
 {
-    public class UserService
+    public class ClientService
     {
-        UserDB users = new UserDB();
         CartDB cart = new CartDB();
+        ClientDB clients = new ClientDB();
 
-        public List<ListModel> GetUsers(string cpf)
+        public List<ListModel> GetClients(string cpf)
         {
-            return users.UsersList()
-                .Where(a => a.UserCpf == cpf)
+            return clients.ClientsList()
+                .Where(a => a.ClientCpf == cpf)
                 .Select(c => new ListModel
                 {
-                    UserId = c.UserId,
-                    Cpf = c.UserCpf,
+                    ClientId = c.ClientId,
+                    Cpf = c.ClientCpf,
                     Name = c.Name,
                     Email = c.Email,
                     Address = c.Address,
@@ -28,7 +28,7 @@ namespace SunnyBuy.Services.UsersServices
 
         public bool Login(string email)
         {
-            if (users.UsersList()
+            if (clients.ClientsList()
                  .Any(e => e.Email == email))
             {
                 return true;
@@ -41,39 +41,39 @@ namespace SunnyBuy.Services.UsersServices
 
         public bool PostUser(ListModel model)
         {
-            return users.PostUserEntity(model);
+            return clients.PostUserEntity(model);
         }
 
-        public List<ListModel> ShowUsersCart()
+        public List<ListModel> ShowClientCart()
         {
             var carts = cart.CartsListDB()
                                 .Where(a => !a.Deleted)
                                 .Select(b => new
                                 {
                                     b.CartId,
-                                    b.UserId
+                                    b.ClientId
                                 })
                                 .ToList();
 
-            var users_cart = users.UsersList()
-                .Where(a => carts.Any(c => c.UserId == a.UserId))
+            var clients_cart = clients.ClientsList()
+                .Where(a => carts.Any(c => c.ClientId == a.ClientId))
                 .Select(b => new ListModel
                 {
-                    UserId = b.UserId,
+                    ClientId = b.ClientId,
                     Name = b.Name,
                     Email = b.Email,
                     Address = b.Address,
-                    Cpf = b.UserCpf,
+                    Cpf = b.ClientCpf,
                     Phone = b.Phone
                 }
                 ).ToList();
 
             foreach (var item in carts)
             {
-                var cart = carts.Find(a => a.UserId == item.UserId);
+                var cart = carts.Find(a => a.ClientId == item.ClientId);
             }
 
-            return users_cart;
+            return clients_cart;
         }
     }
 }

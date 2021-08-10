@@ -8,7 +8,7 @@ namespace SunnyBuy.Views
     {
         CartView cartView = new CartView();
         HomeView homeView = new HomeView();
-        UserService userService = new UserService();
+        ClientService userService = new ClientService();
         ProductsView productsView = new ProductsView();
 
         public void PurchaseRegisterView()
@@ -75,7 +75,7 @@ namespace SunnyBuy.Views
                     var cpf = Console.ReadLine();
                     Console.WriteLine("       ---------------------------------------------------------------------------------------------------");
 
-                    var userr = userService.GetUsers(cpf);
+                    var userr = userService.GetClients(cpf);
 
                     userr.ForEach
                         (                            
