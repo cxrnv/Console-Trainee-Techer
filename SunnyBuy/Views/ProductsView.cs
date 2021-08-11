@@ -5,20 +5,23 @@ namespace SunnyBuy.Views
 {
     public class ProductsView
     {
+        static Context.Context context = new Context.Context();
         HomeView homeView = new HomeView();
+        ClientView clientView = new ClientView();
         LoginView loginView = new LoginView();
         SignUpView signUpView = new SignUpView();
         AssistenceView assistenceView = new AssistenceView();
-        ProductsService productsservice = new ProductsService();
+        ProductsService productsservice = new ProductsService(context);
 
         public void ProductsPageView()
         {
             Console.WriteLine(
-                "                                          (1) Choose a category \n \n" +
-                "                                          (2) Go to the Cart \n \n" +
-                "                                          (3) Login \n \n" +
-                "                                          (4) Sign Up \n \n" +
-                "                                          (5) Assistence"
+                "                                          (1) User page \n \n" +
+                "                                          (2) Choose a category \n \n" +
+                "                                          (3) Go to the Cart \n \n" +
+                "                                          (4) Login \n \n" +
+                "                                          (5) Sign Up \n \n" +
+                "                                          (6) Assistence"
                 );
             Console.WriteLine("                                          ____________________\n");
             Console.Write($"                                           Choose a option: ");
@@ -27,6 +30,10 @@ namespace SunnyBuy.Views
             switch (page_option)
             {
                 case 1:
+                    Console.Clear();
+                    clientView.ShowNav();
+                    break;
+                case 2:
                     Console.Clear();
                     homeView.ShowNav();
                     Console.WriteLine("");
@@ -47,20 +54,20 @@ namespace SunnyBuy.Views
 
                     productsservice.ChooseOptionsCategory(chooseCategory);
                     break;
-                case 2:
+                case 3:
                     CartView goToCart = new CartView();
                     Console.Clear();
                     goToCart.ShowCart();
                     break;
-                case 3:
+                case 4:
                     Console.Clear();
                     loginView.ShowLoginView();
                     break;
-                case 4:
+                case 5:
                     Console.Clear();
                     signUpView.ShowSignUpView();
                     break;
-                case 5:
+                case 6:
                     Console.Clear();
                     assistenceView.Assistence();
                     Console.WriteLine();

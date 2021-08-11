@@ -10,36 +10,46 @@ namespace SunnyBuy.Services.ProductsServices
 {
     public class ProductsService
     {
-        ProductDB product = new ProductDB();
+        protected readonly Context.Context context;
 
-        public List<ProductsModel> ChooseProductsCategory(CategoryEnum categoryEnum)
+        public ProductsService(Context.Context context)
         {
-            return product.ProductsListDB()
-                .Where(a => a.CategoryEnum == categoryEnum)
-                .Select(c => new ProductsModel
+            this.context = context;
+        }
+
+        public ProductsService()
+        {
+
+        }
+
+        public List<ProductsModel> ShowAll() 
+        {
+            return context.Product
+                .Select(i => new ProductsModel()
                 {
-                    ProductId = c.ProductId,
-                    Name = c.Name,
-                    Price = c.Price
+                    ProductId = i.ProductId,
+                    Price = i.Price,
+                    Name = i.Name
                 }).ToList();
         }
 
-        public List<ProductsModel> Search()
+        public List<ProductsModel> ChooseProductsCategory(CategoryEnum categoryEnum)
         {
-            var products = product.ProductsListDB()
-              .Select(p => new ProductsModel
-              {
-                  ProductId = p.ProductId,
-                  Name = p.Name,
-                  Price = p.Price
-              }).ToList();
+            var teste = context.Product
+                 .Where(a => a.CategoryEnum == categoryEnum)
+                 .Select(c => new ProductsModel
+                 {
+                     ProductId = c.ProductId,
+                     Name = c.Name,
+                     Price = c.Price
+                 }).ToList();
 
-            return products;
+            return teste;
         }
 
         public GetModel GetProduct(int productId)
         {
-            return product.ProductsListDB()
+            return context.Product
                 .Where(a => a.ProductId == productId)
                 .Select(c => new GetModel
                 {
@@ -48,12 +58,12 @@ namespace SunnyBuy.Services.ProductsServices
                     Price = c.Price,
                     Detail = c.Detail,
                     Quantity = c.Quantity 
-                }).FirstOrDefault();
+                }).FirstOrDefault();            
         }
 
         public void ShowProductsCategory(CategoryEnum categoryEnum)
         {
-            ProductsService productsservice = new ProductsService();
+            ProductsService productsservice = new ProductsService(context);
 
             var notebooks = productsservice.ChooseProductsCategory(categoryEnum);
 
@@ -73,7 +83,7 @@ namespace SunnyBuy.Services.ProductsServices
         public void ChooseOptionsCategory(int choose)
         {
             ProductView productView = new ProductView();
-            ProductsService productsservice = new ProductsService();
+            ProductsService productsservice = new ProductsService(context);
 
             switch (choose)
             {

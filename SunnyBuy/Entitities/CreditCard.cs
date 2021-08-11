@@ -13,9 +13,9 @@ namespace SunnyBuy.Entitities
         public DateTime DueDate { get; set; }
         public int SecurityCode { get; set; }
 
-        public string ClientCpf { get; set; }
+        public int ClientId { get; set; }
 
-        [ForeignKey("ClientCpf")]
+        [ForeignKey("ClientId")]
         public Client Client { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace SunnyBuy.Entitities
         [ForeignKey(nameof(ClientId))]
         public Client Client { get; set; }
 
-        public int? ProductId { get; set; }
+        public int ProductId { get; set; }
 
         [ForeignKey(nameof(ProductId))]
         public Product Product { get; set; }

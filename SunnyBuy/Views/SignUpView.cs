@@ -8,59 +8,64 @@ namespace SunnyBuy.Views
     {
         HomeView homeView = new HomeView();
         LoginView loginView = new LoginView();
+        Context.Context context = new Context.Context();
+
         public void ShowSignUpView()
         {
-            ClientService userService = new ClientService();
-            var user = new ListModel();
+            ClientService userService = new ClientService(context);
+            var client = new ListModel();
 
             Console.WriteLine("       ___________________________________________________________________________________________________\n");
             Console.WriteLine("       ------------------------------------------------  SignUp ------------------------------------------\n");
             Console.WriteLine("       ___________________________________________________________________________________________________\n");
 
             Console.Write("       *           Cpf: ");
-            user.Cpf = Console.ReadLine();
+            client.Cpf = Console.ReadLine();
 
-            while (user.Cpf.Length != 11)
+            while (client.Cpf.Length != 11)
             {
                 Console.WriteLine("               Cpf number must have 11 characters: ");
-                user.Cpf = Console.ReadLine();
+                client.Cpf = Console.ReadLine();
             }
 
             Console.WriteLine();
 
             Console.Write("       *           Name: ");
-            user.Name = Console.ReadLine();
+            client.Name = Console.ReadLine();
 
             Console.WriteLine();
 
             Console.Write("       *           E mail: ");
-            user.Email = Console.ReadLine();
+            client.Email = Console.ReadLine();
 
-            while (!user.EmailValidate(user.Email))
+            while (!client.EmailValidate(client.Email))
             {
                 Console.WriteLine();
                 Console.Write("       *           Type a valid email: ");
-                user.Email = Console.ReadLine();
+                client.Email = Console.ReadLine();
             }
+
+            Console.Write("       *           Password: ");
+            client.Password = Console.ReadLine();
 
             Console.WriteLine();
 
             Console.Write("       *           Type the address: ");
-            user.Address = Console.ReadLine();
+            client.Address = Console.ReadLine();
             Console.WriteLine();
 
             Console.Write("       *           Type the number phone: ");
-            user.Phone = Console.ReadLine();
+            client.Phone = Console.ReadLine();
 
-            while (user.Phone.Length != 9)
+            while (client.Phone.Length != 9)
             {
                 Console.WriteLine();
                 Console.Write("       *           Phone number must have 9 characters: ");
-                user.Phone = Console.ReadLine();
+                client.Phone = Console.ReadLine();
             }
             Console.WriteLine();
 
-            userService.PostUser(user);
+            userService.PostUser(client);
 
             ShowLogInQuestion();
         }

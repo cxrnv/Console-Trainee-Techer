@@ -10,7 +10,7 @@ namespace SunnyBuy.Entitities
 
         public int CreditCardId { get; set; }
 
-        [ForeignKey("CreditCard")]
+        [ForeignKey("CreditCardId")]
         public CreditCard CreditCard { get; set; }
         public int Billet { get; set; }
         public int Pix { get; set; }

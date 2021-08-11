@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using SunnyBuy.Entitities.DB;
 using System.Collections.Generic;
 using SunnyBuy.Services.UsersServices.Models;
 
@@ -7,12 +6,16 @@ namespace SunnyBuy.Services.UsersServices
 {
     public class ClientService
     {
-        CartDB cart = new CartDB();
-        ClientDB clients = new ClientDB();
+        protected readonly Context.Context context;
+
+        public ClientService(Context.Context context)
+        {
+            this.context = context;
+        }
 
         public List<ListModel> GetClients(string cpf)
         {
-            return clients.ClientsList()
+            return context.Client
                 .Where(a => a.ClientCpf == cpf)
                 .Select(c => new ListModel
                 {
@@ -22,13 +25,12 @@ namespace SunnyBuy.Services.UsersServices
                     Email = c.Email,
                     Address = c.Address,
                     Phone = c.Phone
-                })
-                .ToList();
+                }).ToList();
         }
 
         public bool Login(string email)
         {
-            if (clients.ClientsList()
+            if (context.Client
                  .Any(e => e.Email == email))
             {
                 return true;
@@ -41,39 +43,20 @@ namespace SunnyBuy.Services.UsersServices
 
         public bool PostUser(ListModel model)
         {
-            return clients.PostUserEntity(model);
-        }
-
-        public List<ListModel> ShowClientCart()
-        {
-            var carts = cart.CartsListDB()
-                                .Where(a => !a.Deleted)
-                                .Select(b => new
-                                {
-                                    b.CartId,
-                                    b.ClientId
-                                })
-                                .ToList();
-
-            var clients_cart = clients.ClientsList()
-                .Where(a => carts.Any(c => c.ClientId == a.ClientId))
-                .Select(b => new ListModel
-                {
-                    ClientId = b.ClientId,
-                    Name = b.Name,
-                    Email = b.Email,
-                    Address = b.Address,
-                    Cpf = b.ClientCpf,
-                    Phone = b.Phone
-                }
-                ).ToList();
-
-            foreach (var item in carts)
+            var client = new Entitities.Client
             {
-                var cart = carts.Find(a => a.ClientId == item.ClientId);
-            }
+                ClientCpf = model.Cpf,
+                Name = model.Name,
+                Email = model.Email,
+                Password = model.Password,
+                Address = model.Address,
+                Phone = model.Phone
+            };
 
-            return clients_cart;
+            context.Client.Add(client);
+            context.SaveChanges();
+
+            return true;
         }
     }
 }

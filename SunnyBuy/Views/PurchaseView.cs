@@ -6,9 +6,10 @@ namespace SunnyBuy.Views
 {
     public class PurchaseView
     {
+        static readonly Context.Context context = new Context.Context();
         CartView cartView = new CartView();
         HomeView homeView = new HomeView();
-        ClientService userService = new ClientService();
+        ClientService userService = new ClientService(context);
         ProductsView productsView = new ProductsView();
 
         public void PurchaseRegisterView()

@@ -7,9 +7,11 @@ namespace SunnyBuy.Views
 {
     public class CartView
     {
+        static protected readonly Context.Context context = new Context.Context();
+
         HomeView homeView = new HomeView();
-        CartService cartService = new CartService();
         ProductsView productsView = new ProductsView();
+        CartService cartService = new CartService(context);
 
         public void ShowCart()
         {
@@ -36,7 +38,7 @@ namespace SunnyBuy.Views
 
         public void ProductsCart()
         {
-            var cart = cartService.ShowProductsCart();
+            var cart = cartService.ShowProductsCart(1);
             var total = cart.Sum(a => a.Price);
 
             cart.ForEach

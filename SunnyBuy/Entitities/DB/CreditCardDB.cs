@@ -37,7 +37,7 @@ namespace SunnyBuy.Entitities.DB
                         card.Number = fields[2];
                         card.DueDate = DateTime.Parse(fields[3]);
                         card.SecurityCode = int.Parse(fields[4]);
-                        card.ClientCpf = fields[5];
+                        card.ClientId = int.Parse(fields[5]);
 
                         cardsList.Add(card);
                     });
@@ -64,7 +64,7 @@ namespace SunnyBuy.Entitities.DB
                 modelEntity.Number = model.Number;
                 modelEntity.DueDate = model.DueDate;
                 modelEntity.SecurityCode = model.SecurityCode;
-                modelEntity.ClientCpf = model.ClientCpf;
+                modelEntity.ClientId = model.ClientId;
 
                 cards.Add(modelEntity);
 
@@ -81,7 +81,7 @@ namespace SunnyBuy.Entitities.DB
                         item.Number.ToString(),
                         item.DueDate.ToString(),
                         item.SecurityCode.ToString(),
-                        item.ClientCpf.ToString()
+                        item.ClientId.ToString()
                     };
 
                     lines.Add(String.Join(";", aux));

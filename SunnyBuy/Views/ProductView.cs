@@ -5,6 +5,8 @@ namespace SunnyBuy.Views
 {
     public class ProductView
     {
+        Context.Context context = new Context.Context();
+
         public void CardProductCategory(string category)
         {
             Console.WriteLine("            ____________________________________________________");
@@ -33,7 +35,7 @@ namespace SunnyBuy.Views
         {
             HomeView homeView = new HomeView();
             CartView cartView = new CartView();
-            CartService cartService = new CartService();
+            CartService cartService = new CartService(context);
             ProductsView productsView = new ProductsView();
 
             switch (awnser)

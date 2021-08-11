@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SunnyBuy.Entitities
 {
@@ -13,10 +12,5 @@ namespace SunnyBuy.Entitities
         public string  Password { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
-
-        public int PaymentTypeId { get; set; }
-
-        [ForeignKey(nameof(PaymentTypeId))]
-        public PaymentType PaymentType { get; set; }
     }
 }
