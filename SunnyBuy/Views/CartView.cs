@@ -2,18 +2,20 @@
 using System.Linq;
 using SunnyBuy.LoggedIn;
 using SunnyBuy.Services.CartServices;
+using SunnyBuy.Services.UsersServices;
 
 namespace SunnyBuy.Views
 {
     public class CartView
     {
-        static protected readonly Context.Context context = new Context.Context();
-        ClientLoggedIn loggedInclient = new ClientLoggedIn();
         HomeView homeView = new HomeView();
         ProductsView productsView = new ProductsView();
         CartService cartService = new CartService(context);
+        ClientLoggedIn loggedInclient = new ClientLoggedIn();
+        ClientService clientService = new ClientService(context);
+        static protected readonly Context.Context context = new Context.Context();
 
-        public void ShowCart(ClientLoggedIn loggedInclient)
+        public void ShowCart(int id )
         {
             Console.Clear();
             Console.WriteLine("       ___________________________________________________________________________________________________");
@@ -22,7 +24,7 @@ namespace SunnyBuy.Views
             Console.WriteLine("       ___________________________________________________________________________________________________");
             Console.WriteLine();
 
-            ProductsCart();
+            ProductsCart(id);
 
             Console.WriteLine(
                 "                                              (1) Go to the Home \n \n" +
@@ -33,16 +35,33 @@ namespace SunnyBuy.Views
             Console.Write("                                              Choose a option: ");
             var awnser = Convert.ToInt32(Console.ReadLine());
 
-            CartOptions(awnser);
+            CartOptions(awnser, id);
         }
 
-        public void ProductsCart()
+        public void ProductsCart(int id)
         {
-            Console.WriteLine("Type your id: ");
-            var id = Convert.ToInt32(Console.ReadLine());
 
+            Console.WriteLine("       ---------------------------------------------------------------------------------------------------\n");
+            Console.WriteLine("       Your cart: ");
+            Console.WriteLine("       ___________________________________________________________________________________________________\n");
             var cart = cartService.ShowProductsCart(id);
+
+            var client = clientService.GetClientsId(id);
+
+            client.ForEach
+                (
+                c => Console.WriteLine
+                    (
+                           $"        {c.Name}\n \n" +
+                           $"        {c.Email}\n \n" +
+                           $"        {c.Phone}\n \n" +
+                           $"        Send to: {c.Address}\n")
+                );
+
+
             var total = cart.Sum(a => a.Price);
+
+
 
             cart.ForEach
                 (
@@ -57,7 +76,7 @@ namespace SunnyBuy.Views
             Console.WriteLine($"       -----------------------------------------------------------------------------   TOTAL:   R${total} \n");
         }
     
-        public void CartOptions(int awnser)
+        public void CartOptions(int awnser, int id)
         {
             switch (awnser)
             {
@@ -74,7 +93,7 @@ namespace SunnyBuy.Views
                     break;
                 default:
                     Console.Clear();
-                    ShowCart(loggedInclient);
+                    ShowCart(id);
                     break;
             }
         }

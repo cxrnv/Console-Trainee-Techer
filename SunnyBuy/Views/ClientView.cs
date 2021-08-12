@@ -35,7 +35,7 @@ namespace SunnyBuy.Views
             Console.WriteLine("                                                        User Page                                         ");
             Console.WriteLine("       ___________________________________________________________________________________________________\n");
 
-            clientService.GetClients(cpf).ForEach(
+            clientService.GetClientsCpf(cpf).ForEach(
                client =>
                Console.WriteLine
                ($"              User name: { client.Name }\n\n" +

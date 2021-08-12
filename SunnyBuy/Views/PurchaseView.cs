@@ -1,18 +1,21 @@
 ﻿using System;
 using SunnyBuy.LoggedIn;
 using SunnyBuy.Services.UsersServices;
-using SunnyBuy.Services.UsersServices.Models;
+using SunnyBuy.Services.CreditCardServices.Models;
+using SunnyBuy.Services.PurchaseServices;
 
 namespace SunnyBuy.Views
 {
     public class PurchaseView
     {
-        static readonly Context.Context context = new Context.Context();
-        CartView cartView = new CartView();
         HomeView homeView = new HomeView();
-        ClientService userService = new ClientService(context);
+        CartView cartView = new CartView();
         ProductsView productsView = new ProductsView();
         ClientLoggedIn loggedInclient = new ClientLoggedIn();
+        ClientService userService = new ClientService(context);
+        PurchaseService purchaseService = new PurchaseService(context);
+        static readonly Context.Context context = new Context.Context();
+        CreditCardService creditCardService = new CreditCardService(context);
 
         public void PurchaseRegisterView()
         {
@@ -43,7 +46,10 @@ namespace SunnyBuy.Views
                     switch (payment)
                     {
                         case "1":
-                            CreditCardView();
+                            Console.WriteLine("Type your id: ");
+                            var clientid = Convert.ToInt32(Console.ReadLine());
+
+                            CreditCardView(clientid);
                             break;
                         case "2":
                             Console.Clear();
@@ -78,7 +84,7 @@ namespace SunnyBuy.Views
                     var cpf = Console.ReadLine();
                     Console.WriteLine("       ---------------------------------------------------------------------------------------------------");
 
-                    var userr = userService.GetClients(cpf);
+                    var userr = userService.GetClientsCpf(cpf);
 
                     userr.ForEach
                         (                            
@@ -93,69 +99,59 @@ namespace SunnyBuy.Views
                     Console.WriteLine("       ___________________________________________________________________________________________________\n");
                     Console.WriteLine();
 
-                    cartView.ProductsCart();
+                    Console.Write("       * Type your id: ");
+                    var id = Convert.ToInt32(Console.ReadLine());
+                    cartView.ProductsCart(id);
 
                     GoHome();
                     break;
                 case "n":
-                    cartView.ShowCart(loggedInclient);
+                    Console.WriteLine("yess");
                     break;
                 default:
-                    cartView.ShowCart(loggedInclient);
+                    Console.WriteLine("yess");
                     break;
             }
         }
 
-        public void GoHome()
+        public void CreditCardView(int clientid)
         {
-            Console.Write("                                          Go to the home page ? y/n ");
-            var awnserHome = Console.ReadLine().ToUpper();
-
-            switch (awnserHome)
-            {
-                case "Y":
-                    Console.Clear();
-                    homeView.ShowHome();
-                    Console.WriteLine("");
-                    productsView.ProductsPageView(loggedInclient);
-                    break;
-                default:
-                    Console.Clear();
-                    Console.WriteLine();
-                    Console.WriteLine("                                          Thanks for buying in SunnyBuy :) ");
-                    Environment.Exit(0);
-                    break;
-            }
-        }
-
-        public void CreditCardView()
-        {
-            CreditCardModel model = new CreditCardModel();
+            ListModel model = new ListModel();
 
             Console.WriteLine("       ___________________________________________________________________________________________________");
             Console.WriteLine();
             Console.WriteLine("       ---------------------------------------    Add Credit Card  --------------------------------------");
             Console.WriteLine("       ___________________________________________________________________________________________________\n");
+
+            model.ClientId = clientid;
+
+            Console.Write("       Operator:  *");
+            model.Operator = Console.ReadLine();
+            Console.WriteLine("       ___________________________________________________________________________________________________");
+
             Console.Write("       Card number *");
             model.Number = Console.ReadLine();
             Console.WriteLine("       ___________________________________________________________________________________________________");
 
             Console.Write("       Expiry (MM/YY) *");
-            model.Expiry = Console.ReadLine();
+            model.DueDate = Console.ReadLine();
             Console.WriteLine("       ___________________________________________________________________________________________________");
 
             Console.Write("       Card code *");
-            model.Code = Console.ReadLine();
+            model.SecurityCode = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("       ___________________________________________________________________________________________________");
 
             Console.Write("                                               Confirm payment ? y/n ");
             var a = Console.ReadLine().ToUpper();
+            
 
             while (a != "Y")
             {
                 Console.Write("                                           *Confirm payment ? y/n ");
                 a = Console.ReadLine();
             }
+
+            creditCardService.AddCreditCard(model);
 
             Console.Clear();
         }
@@ -216,6 +212,31 @@ namespace SunnyBuy.Views
             Console.WriteLine();
             Console.WriteLine("       ---------------------------------------    Purchase Complete  -------------------------------------");
             Console.WriteLine("       ___________________________________________________________________________________________________\n");
+
+            purchaseService
+                .ShowPurchase(5);
+        }
+
+        public void GoHome()
+        {
+            Console.Write("                                          Go to the home page ? y/n ");
+            var awnserHome = Console.ReadLine().ToUpper();
+
+            switch (awnserHome)
+            {
+                case "Y":
+                    Console.Clear();
+                    homeView.ShowHome();
+                    Console.WriteLine("");
+                    productsView.ProductsPageView(loggedInclient);
+                    break;
+                default:
+                    Console.Clear();
+                    Console.WriteLine();
+                    Console.WriteLine("                                          Thanks for buying in SunnyBuy :) ");
+                    Environment.Exit(0);
+                    break;
+            }
         }
     }
 }

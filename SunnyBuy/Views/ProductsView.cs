@@ -6,13 +6,12 @@ namespace SunnyBuy.Views
 {
     public class ProductsView
     {
-        ClientLoggedIn loggedInclient = new ClientLoggedIn();
-        static Context.Context context = new Context.Context();
         HomeView homeView = new HomeView();
-        ClientView clientView = new ClientView();
         LoginView loginView = new LoginView();
+        ClientView clientView = new ClientView();
         SignUpView signUpView = new SignUpView();
         AssistenceView assistenceView = new AssistenceView();
+        static Context.Context context = new Context.Context();
         ProductsService productsservice = new ProductsService(context);
 
         public void ProductsPageView(ClientLoggedIn loggedInclient)
@@ -59,7 +58,9 @@ namespace SunnyBuy.Views
                 case 3:
                     CartView goToCart = new CartView();
                     Console.Clear();
-                    goToCart.ShowCart(loggedInclient);
+                    Console.WriteLine("            Type your id: ");
+                    var id = Convert.ToInt32(Console.ReadLine());
+                    goToCart.ShowCart(id);
                     break;
                 case 4:
                     Console.Clear();

@@ -61,7 +61,7 @@ namespace SunnyBuy.Views
                     {
                         case "Y":
                             Console.Clear();
-                            cartView.ShowCart(loggedInclient);
+                            cartView.ShowCart(loggedInclient.ClientId);
                             break;
                         case "N":
                             Console.Clear();

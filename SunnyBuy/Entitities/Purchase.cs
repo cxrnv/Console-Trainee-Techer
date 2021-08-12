@@ -13,5 +13,13 @@ namespace SunnyBuy.Entitities
 
         [ForeignKey(nameof(PaymentTypeId))]
         public PaymentType PaymentType { get; set; }
+        public int ClientId { get; set; }
+
+        [ForeignKey(nameof(ClientId))]
+        public Client Client { get; set; }
+        public int CartId { get; set; }
+
+        [ForeignKey(nameof(CartId))]
+        public Cart Cart { get; set; }
     }
 }

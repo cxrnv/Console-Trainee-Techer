@@ -16,10 +16,25 @@ namespace SunnyBuy.Services.UsersServices
             this.context = context;
         }
 
-        public List<ListModel> GetClients(string cpf)
+        public List<ListModel> GetClientsCpf(string cpf)
         {
             return context.Client
-                .Where(a => a.ClientCpf == cpf)
+                .Where(a => a.ClientCpf == cpf )
+                .Select(c => new ListModel
+                {
+                    ClientId = c.ClientId,
+                    Cpf = c.ClientCpf,
+                    Name = c.Name,
+                    Email = c.Email,
+                    Address = c.Address,
+                    Phone = c.Phone
+                }).ToList();
+        }
+
+        public List<ListModel> GetClientsId(int id)
+        {
+            return context.Client
+                .Where(a => a.ClientId == id)
                 .Select(c => new ListModel
                 {
                     ClientId = c.ClientId,
