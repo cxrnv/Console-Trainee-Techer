@@ -15,7 +15,7 @@ namespace SunnyBuy.Views
         ClientService clientService = new ClientService(context);
         static protected readonly Context.Context context = new Context.Context();
 
-        public void ShowCart(int id )
+        public void ShowCart(int clientId )
         {
             Console.Clear();
             Console.WriteLine("       ___________________________________________________________________________________________________");
@@ -24,7 +24,7 @@ namespace SunnyBuy.Views
             Console.WriteLine("       ___________________________________________________________________________________________________");
             Console.WriteLine();
 
-            ProductsCart(id);
+            ProductsCart(clientId);
 
             Console.WriteLine(
                 "                                              (1) Go to the Home \n \n" +
@@ -35,18 +35,16 @@ namespace SunnyBuy.Views
             Console.Write("                                              Choose a option: ");
             var awnser = Convert.ToInt32(Console.ReadLine());
 
-            CartOptions(awnser, id);
+            CartOptions(awnser, clientId);
         }
 
-        public void ProductsCart(int id)
+        public void ProductsCart(int clientId)
         {
-
-            Console.WriteLine("       ---------------------------------------------------------------------------------------------------\n");
             Console.WriteLine("       Your cart: ");
             Console.WriteLine("       ___________________________________________________________________________________________________\n");
-            var cart = cartService.ShowProductsCart(id);
+            var cart = cartService.ShowProductsCart(clientId);
 
-            var client = clientService.GetClientsId(id);
+            var client = clientService.GetClientsId(clientId);
 
             client.ForEach
                 (
@@ -61,8 +59,6 @@ namespace SunnyBuy.Views
 
             var total = cart.Sum(a => a.Price);
 
-
-
             cart.ForEach
                 (
                 a =>
@@ -76,7 +72,7 @@ namespace SunnyBuy.Views
             Console.WriteLine($"       -----------------------------------------------------------------------------   TOTAL:   R${total} \n");
         }
     
-        public void CartOptions(int awnser, int id)
+        public void CartOptions(int awnser, int clientId)
         {
             switch (awnser)
             {
@@ -89,11 +85,11 @@ namespace SunnyBuy.Views
                 case 2:
                     PurchaseView purchaseView = new PurchaseView();
                     Console.Clear();
-                    purchaseView.PurchaseRegisterView();
+                    purchaseView.PurchaseRegisterView(clientId);
                     break;
                 default:
                     Console.Clear();
-                    ShowCart(id);
+                    ShowCart(clientId);
                     break;
             }
         }

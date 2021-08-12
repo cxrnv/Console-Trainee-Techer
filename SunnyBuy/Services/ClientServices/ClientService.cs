@@ -1,9 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.IO;
+using System.Linq;
+using SunnyBuy.LoggedIn;
 using System.Collections.Generic;
 using SunnyBuy.Services.UsersServices.Models;
-using SunnyBuy.LoggedIn;
-using System.IO;
-using System;
+using SunnyBuy.Services.CreditCardServices.Models;
 
 namespace SunnyBuy.Services.UsersServices
 {
@@ -81,6 +82,22 @@ namespace SunnyBuy.Services.UsersServices
             {
                 return false;
             }
+        }
+
+        public List<CreditCardListModel> ExistingCards(int clientId)
+        {
+            return context.CreditCard
+                .Where(u => u.ClientId == clientId)
+                .Select(a => new CreditCardListModel
+                {
+                    ClientId = a.ClientId,
+                    Operator = a.Operator,
+                    DueDate = a.DueDate,
+                    Number = a.Number,
+                    SecurityCode = a.SecurityCode,
+                    CreditCardId = a.CreditCardId
+                })
+                .ToList();
         }
 
         public bool PostUser(ListModel model)

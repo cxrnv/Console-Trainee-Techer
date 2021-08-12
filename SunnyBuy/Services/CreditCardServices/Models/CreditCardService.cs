@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SunnyBuy.Services.CreditCardServices.Models
+﻿namespace SunnyBuy.Services.CreditCardServices.Models
 {
     public class CreditCardService
     {
@@ -19,13 +14,14 @@ namespace SunnyBuy.Services.CreditCardServices.Models
 
         }
 
-        public bool AddCreditCard(ListModel model) 
+        public bool AddCreditCard(CreditCardListModel model) 
         {
             var card = new Entitities.CreditCard()
             {
                 ClientId = model.ClientId,
                 DueDate = model.DueDate,
                 Number = model.Number,
+                SecurityCode = model.SecurityCode,
                 Operator = model.Operator
             };
 
@@ -33,20 +29,6 @@ namespace SunnyBuy.Services.CreditCardServices.Models
             context.SaveChanges();
 
             return true;
-        }
-
-        public List<ListModel> ShowAllCreditCard(int clientId)
-        {
-            return context.CreditCard
-                .Select(c => new ListModel() 
-                { 
-                    ClientId = clientId,
-                    CreditCardId = c.CreditCardId,
-                    Operator = c.Operator,
-                    Number = c.Number,
-                    DueDate = c.DueDate,
-                    SecurityCode = c.SecurityCode
-                } ).ToList();
         }
     }
 }

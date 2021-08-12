@@ -1,129 +1,104 @@
 ﻿using System;
 using SunnyBuy.LoggedIn;
+using SunnyBuy.Services.CartServices;
 using SunnyBuy.Services.UsersServices;
-using SunnyBuy.Services.CreditCardServices.Models;
 using SunnyBuy.Services.PurchaseServices;
+using SunnyBuy.Services.PurchaseServices.Models;
+using SunnyBuy.Services.CreditCardServices.Models;
 
 namespace SunnyBuy.Views
 {
     public class PurchaseView
     {
         HomeView homeView = new HomeView();
-        CartView cartView = new CartView();
         ProductsView productsView = new ProductsView();
+        CartService cartService = new CartService(context);
         ClientLoggedIn loggedInclient = new ClientLoggedIn();
-        ClientService userService = new ClientService(context);
+        ClientService clientService = new ClientService(context);
         PurchaseService purchaseService = new PurchaseService(context);
         static readonly Context.Context context = new Context.Context();
         CreditCardService creditCardService = new CreditCardService(context);
 
-        public void PurchaseRegisterView()
+        public void PurchaseRegisterView(int clientId)
         {
             Console.WriteLine("       ___________________________________________________________________________________________________");
             Console.WriteLine();
             Console.WriteLine("       -----------------------------------------    Payment Type   ---------------------------------------");
             Console.WriteLine("       ___________________________________________________________________________________________________\n");
 
+            clientService.GetClientsId(clientId)
+                .ForEach(a => Console.WriteLine($"       {a.Name} :) Now, choose the payment type !"));
+            Console.WriteLine("       ----------------------------------------------------------------------------------------------------\n");
+
             Console.WriteLine("           Payment types: \n" +
                 "                         (1) CreditCard \n" +
                 "                         (2) Billet \n" +
-                "                         (3) Pix");
+                "                         (3) Pix \n \n");
 
-            Console.WriteLine();
             Console.Write("           Choose the payment type: ");
             var payment = Console.ReadLine();
+
+            ChoosePaymentType(payment, clientId);
+
             Console.WriteLine();
-
-            Console.Write("           Confirm purchase ? y/n ");
-            var confirm_purchase = Console.ReadLine();
-
-            switch (confirm_purchase)
-            {
-                case "y":
-                    Console.Clear();
-                    PurchaseCompleteNav();
-
-                    switch (payment)
-                    {
-                        case "1":
-                            Console.WriteLine("Type your id: ");
-                            var clientid = Convert.ToInt32(Console.ReadLine());
-
-                            CreditCardView(clientid);
-                            break;
-                        case "2":
-                            Console.Clear();
-                            BilletView();
-                            break;
-                        case "3":
-                            Console.Clear();
-                            PixView();
-                            break;
-                        default:
-                            break;
-                    }
-
-                    switch (payment)
-                    {
-                        case "1":
-                            payment = " (Credit Card)";
-                            Console.WriteLine($" ");
-                            break;
-                        case "2":
-                            payment = "(Billet)";
-                            break;
-                        case "3":
-                            payment = "(Pix)";
-                            break;
-                        default:
-                            break;
-                    }
-
-                    PurchaseCompleteNav();
-                    Console.Write("       * Type your cpf: ");
-                    var cpf = Console.ReadLine();
-                    Console.WriteLine("       ---------------------------------------------------------------------------------------------------");
-
-                    var userr = userService.GetClientsCpf(cpf);
-
-                    userr.ForEach
-                        (                            
-                          u =>
-                          Console.WriteLine
-                          ($"        {u.Name}\n \n" +
-                           $"        {u.Email}\n \n" +
-                           $"        {u.Phone}\n \n" +
-                           $"        Send to: {u.Address}\n")
-                        );
-                    Console.WriteLine($"        Payment Type: {payment}\n");
-                    Console.WriteLine("       ___________________________________________________________________________________________________\n");
-                    Console.WriteLine();
-
-                    Console.Write("       * Type your id: ");
-                    var id = Convert.ToInt32(Console.ReadLine());
-                    cartView.ProductsCart(id);
-
-                    GoHome();
-                    break;
-                case "n":
-                    Console.WriteLine("yess");
-                    break;
-                default:
-                    Console.WriteLine("yess");
-                    break;
-            }
         }
 
-        public void CreditCardView(int clientid)
+        public void CreditCardView(int clientId)
         {
-            ListModel model = new ListModel();
+            Console.Clear();
 
             Console.WriteLine("       ___________________________________________________________________________________________________");
             Console.WriteLine();
-            Console.WriteLine("       ---------------------------------------    Add Credit Card  --------------------------------------");
+            Console.WriteLine("       ------------------------------------------    Credit Card  ----------------------------------------");
             Console.WriteLine("       ___________________________________________________________________________________________________\n");
 
-            model.ClientId = clientid;
+            clientService.GetClientsId(clientId)
+                .ForEach(a =>
+                    System.Console.WriteLine
+                    (   $"       {a.Name}\n" +
+                        $"       {a.Email}\n" +
+                        $"       {a.Phone}\n" +
+                        $""
+                    )
+                );
+            Console.WriteLine("              Exisiting cards");
+            clientService.ExistingCards(clientId)
+                .ForEach(a=>
+                Console.WriteLine
+                (
+                 $"       Operator:      *{a.Operator}\n" +
+                 $"       Due Date:      *{a.DueDate}\n" +
+                 $"       Security Code: *{a.SecurityCode}\n\n" +
+                 $"       "
+                    ));
+
+            Console.WriteLine
+                ("       (1) Select an existing card\n" +
+                 "       (2) Add a new card");
+            var awnser = Convert.ToInt32(Console.ReadLine());
+
+            switch (awnser)
+            {
+                case 1:
+
+                    break;
+                case 2:
+                    break;
+                default:
+                    Console.Clear();
+                    CreditCardView(clientId);
+                    break;
+            }
+
+
+            PurchaseListModel purchaseListModel = new PurchaseListModel();
+            CreditCardListModel model = new CreditCardListModel();
+
+
+            clientService.GetClientsId(clientId)
+               .ForEach(a => Console.WriteLine($"       {a.Name} :) Add a new card !"));//or select and existing card
+
+            model.ClientId = clientId;
 
             Console.Write("       Operator:  *");
             model.Operator = Console.ReadLine();
@@ -138,12 +113,13 @@ namespace SunnyBuy.Views
             Console.WriteLine("       ___________________________________________________________________________________________________");
 
             Console.Write("       Card code *");
-            model.SecurityCode = Convert.ToInt32(Console.ReadLine());
+            model.SecurityCode = Console.ReadLine();
             Console.WriteLine("       ___________________________________________________________________________________________________");
 
             Console.Write("                                               Confirm payment ? y/n ");
             var a = Console.ReadLine().ToUpper();
             
+
 
             while (a != "Y")
             {
@@ -151,12 +127,21 @@ namespace SunnyBuy.Views
                 a = Console.ReadLine();
             }
 
+            purchaseListModel.DatePurchase = DateTime.Now;
+            purchaseListModel.ClientId = clientId;
+            purchaseListModel.PaymentTypeEnum = Enums.PaymentTypeEnum.CreditCard;
+            purchaseListModel.CartId = 7;
+
+
             creditCardService.AddCreditCard(model);
+            purchaseService.PostPurchase(purchaseListModel);
 
             Console.Clear();
+
+            PurchaseCompleteNav(clientId);
         }
 
-        public void BilletView()
+        public void BilletView(int clientId)
         {
             Console.WriteLine("       ___________________________________________________________________________________________________");
             Console.WriteLine();
@@ -179,9 +164,10 @@ namespace SunnyBuy.Views
             }
 
             Console.Clear();
+            PurchaseCompleteNav(clientId);
         }
 
-        public void PixView()
+        public void PixView(int clientId)
         {
             Console.WriteLine("       ___________________________________________________________________________________________________");
             Console.WriteLine();
@@ -204,17 +190,45 @@ namespace SunnyBuy.Views
             }
 
             Console.Clear();
+            PurchaseCompleteNav(clientId);
         }
 
-        public void PurchaseCompleteNav()
+        public void PurchaseCompleteNav(int clientId)
         {
             Console.WriteLine("       ___________________________________________________________________________________________________");
             Console.WriteLine();
             Console.WriteLine("       ---------------------------------------    Purchase Complete  -------------------------------------");
             Console.WriteLine("       ___________________________________________________________________________________________________\n");
 
-            purchaseService
-                .ShowPurchase(5);
+            cartService.ShowProductsCart(clientId)
+                .ForEach
+                (
+                    c => Console.WriteLine
+                        (
+                        $" {c.Name} \n" +
+                        $" {c.Price}\n"
+                        )
+                );
+        }
+
+        public void ChoosePaymentType(string choose, int clientid)
+        {
+            switch (choose)
+            {
+                case "1":
+                    CreditCardView(clientid);
+                    break;
+                case "2":
+                    Console.Clear();
+                    BilletView(clientid);
+                    break;
+                case "3":
+                    Console.Clear();
+                    PixView(clientid);
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void GoHome()

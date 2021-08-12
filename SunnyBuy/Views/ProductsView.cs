@@ -58,7 +58,8 @@ namespace SunnyBuy.Views
                 case 3:
                     CartView goToCart = new CartView();
                     Console.Clear();
-                    Console.WriteLine("            Type your id: ");
+                    homeView.ShowNav();
+                    Console.Write("                 Type your id: ");
                     var id = Convert.ToInt32(Console.ReadLine());
                     goToCart.ShowCart(id);
                     break;

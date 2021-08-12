@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SunnyBuy.Enums;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,10 +10,13 @@ namespace SunnyBuy.Entitities
         [Key]
         public int PurchaseId { get; set; }
         public DateTime DatePurchase { get; set; }
-        public int PaymentTypeId { get; set; }
 
-        [ForeignKey(nameof(PaymentTypeId))]
+        [Column("PaymentTypeId")]
+        public PaymentTypeEnum PaymentTypeEnum { get; set; }
+
+        [ForeignKey(nameof(PaymentTypeEnum))]
         public PaymentType PaymentType { get; set; }
+
         public int ClientId { get; set; }
 
         [ForeignKey(nameof(ClientId))]

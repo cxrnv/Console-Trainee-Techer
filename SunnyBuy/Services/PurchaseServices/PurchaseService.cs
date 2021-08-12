@@ -6,15 +6,16 @@ using Microsoft.EntityFrameworkCore;
 using SunnyBuy.Services.PurchaseServices.Models;
 using SunnyBuy.Services.CartServices;
 using SunnyBuy.Services.CreditCardServices.Models;
+using PurchaseListModel = SunnyBuy.Services.PurchaseServices.Models.PurchaseListModel;
 
 namespace SunnyBuy.Services.PurchaseServices
 {
     public class PurchaseService
     {
-        CartService cartService = new CartService(contextVar);
         protected readonly Context.Context context;
-        CreditCardService cardService = new CreditCardService(contextVar);
+        CartService cartService = new CartService(contextVar);
         static Context.Context contextVar = new Context.Context();
+        CreditCardService cardService = new CreditCardService(contextVar);
 
         public PurchaseService(Context.Context context)
         {
@@ -26,9 +27,22 @@ namespace SunnyBuy.Services.PurchaseServices
 
         }
 
-        public void ShowPurchase(int clientId)
+        
+        public bool PostPurchase(PurchaseListModel model)
         {
-            cartService.ShowProductsCart(clientId);
+            var purchase = new Entitities.Purchase
+            {
+                PurchaseId = model.PurchaseId,
+                DatePurchase = model.DatePurchase,
+                PaymentTypeEnum = model.PaymentTypeEnum,
+                ClientId = model.ClientId,
+                CartId = model.CartId
+            };
+
+            context.Purchase.Add(purchase);
+            context.SaveChanges();
+
+            return true;
         }
     }
 }
