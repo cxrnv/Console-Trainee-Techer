@@ -21,6 +21,55 @@ namespace SunnyBuy.Services.CartServices
 
         }
 
+        public bool AddProductCart(int clientId, int productId)
+        {
+            var model = new Entitities.Cart()
+            {
+                ClientId = clientId,
+                ProductId = productId,
+                DateInclude = DateTime.Now,
+                Deleted = false
+            };
+
+            context.Cart.Add(model);
+            context.SaveChanges();
+
+            return true;
+
+            /*try
+            {
+                var cart = context.Cart
+                .Where(
+                    a => a.ProductId == productId &&
+                    model.ClientId == clientId &&
+                    model.Deleted == false)
+                .FirstOrDefault();
+
+                if (cart == null)
+                {
+                    try
+                    {
+                        context.Cart.Add(model);
+                        context.SaveChanges();
+                    }
+                    catch (IOException e)
+                    {
+                        Console.WriteLine("Ocurred an error");
+                        Console.WriteLine(e.Message);
+                    }
+
+                    return true;
+                }
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("Ocurred an error");
+                Console.WriteLine(e);
+            }
+
+            throw new Exception("Esse produto ja esta no carrinho");*/
+        }
+
         public bool PostProductCart(int productId)
         {
             var model = new Entitities.Cart()

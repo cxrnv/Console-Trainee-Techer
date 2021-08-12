@@ -1,10 +1,12 @@
 ﻿using System;
+using SunnyBuy.LoggedIn;
 using SunnyBuy.Services.ProductsServices;
 
 namespace SunnyBuy.Views
 {
     public class ProductsView
     {
+        ClientLoggedIn loggedInclient = new ClientLoggedIn();
         static Context.Context context = new Context.Context();
         HomeView homeView = new HomeView();
         ClientView clientView = new ClientView();
@@ -13,7 +15,7 @@ namespace SunnyBuy.Views
         AssistenceView assistenceView = new AssistenceView();
         ProductsService productsservice = new ProductsService(context);
 
-        public void ProductsPageView()
+        public void ProductsPageView(ClientLoggedIn loggedInclient)
         {
             Console.WriteLine(
                 "                                          (1) User page \n \n" +
@@ -57,7 +59,7 @@ namespace SunnyBuy.Views
                 case 3:
                     CartView goToCart = new CartView();
                     Console.Clear();
-                    goToCart.ShowCart();
+                    goToCart.ShowCart(loggedInclient);
                     break;
                 case 4:
                     Console.Clear();
@@ -80,7 +82,7 @@ namespace SunnyBuy.Views
                             Console.Clear();
                             homeView.ShowHome();
                             Console.WriteLine();
-                            ProductsPageView();
+                            ProductsPageView(loggedInclient);
                             break;
                         default:
                             Console.Clear();
@@ -99,7 +101,7 @@ namespace SunnyBuy.Views
                     Console.Clear();
                     homeView.ShowHome();
                     Console.WriteLine();
-                    ProductsPageView();
+                    ProductsPageView(loggedInclient);
                     break;
             }
         }

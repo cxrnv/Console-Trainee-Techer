@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using SunnyBuy.LoggedIn;
 using SunnyBuy.Services.UsersServices;
 using SunnyBuy.Services.UsersServices.Models;
@@ -9,12 +10,11 @@ namespace SunnyBuy.Views
     {
         public void ShowLoginView()
         {
+            var login = new LoginModel();
             var loggedInclient = new ClientLoggedIn();
 
             Context.Context context = new Context.Context();
-            ClientService userService = new ClientService(context);
-
-            var login = new LoginModel();
+            ClientService clientService = new ClientService(context); 
 
             Console.WriteLine("       ___________________________________________________________________________________________________");
             Console.WriteLine();
@@ -29,49 +29,54 @@ namespace SunnyBuy.Views
             {
                 Console.WriteLine();
                 Console.Write("       *           Type a valid email: ");
-                client.Email = Console.ReadLine();
+                login.Email = Console.ReadLine();
             }
 
-            if (userService.Login(login.Email))
+            Console.Write("       *           Password: ");
+            login.Password = string.Empty;
+            ConsoleKey key;
+            do
             {
-                var userP = new LoginModel();
-                Console.Write("       *           Password: ");
-                userP.Password = string.Empty;
-                ConsoleKey key;
+                var keyInfo = Console.ReadKey(intercept: true);
+                key = keyInfo.Key;
 
-                do
+                if (key == ConsoleKey.Backspace && login.Password.Length > 0)
                 {
-                    var keyInfo = Console.ReadKey(intercept: true);
-                    key = keyInfo.Key;
+                    Console.Write("\b \b");
+                    login.Password = login.Password[0..^1];
+                }
+                else if (!char.IsControl(keyInfo.KeyChar))
+                {
+                    Console.Write("*");
+                    login.Password += keyInfo.KeyChar;
+                }
+            } while (key != ConsoleKey.Enter);
 
-                    if (key == ConsoleKey.Backspace && userP.Password.Length > 0)
-                    {
-                        Console.Write("\b \b");
-                        userP.Password = userP.Password[0..^1];
-                    }
-                    else if (!char.IsControl(keyInfo.KeyChar))
-                    {
-                        Console.Write("*");
-                        userP.Password += keyInfo.KeyChar;
-                    }
-                } while (key != ConsoleKey.Enter);
+            Console.WriteLine();
 
-                loggedInclient = client;
+            loggedInclient = clientService.LoggedIn(login);
 
-                HomeView homeView = new HomeView();
-                ProductsView productsView = new ProductsView();
-
-                Console.Clear();
-                homeView.ShowHome();
-                productsView.ProductsPageView();
-            }
-            else
+            try
             {
-                Console.WriteLine("                   This email doesnt exist. \n");
-                SignUpQuestion();               
+                if (loggedInclient == null)
+                {
+                    Console.WriteLine("Email ou senha incorretos, tente novamente");
+                    Console.WriteLine(" ***** Try again ");
+                    Console.Clear();
+                    ShowLoginView();
+                }
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("Ocorreu um Erro");
+                Console.WriteLine(e);
             }
 
-
+            Console.Clear();
+            HomeView home = new HomeView();
+            ProductsView products = new ProductsView();
+            home.ShowHome();
+            products.ProductsPageView(loggedInclient);            
         }
 
         public void SignUpQuestion()

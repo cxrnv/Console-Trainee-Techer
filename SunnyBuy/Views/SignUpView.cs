@@ -1,4 +1,5 @@
 ﻿using System;
+using SunnyBuy.LoggedIn;
 using SunnyBuy.Services.UsersServices;
 using SunnyBuy.Services.UsersServices.Models;
 
@@ -8,6 +9,7 @@ namespace SunnyBuy.Views
     {
         HomeView homeView = new HomeView();
         LoginView loginView = new LoginView();
+        ClientLoggedIn loggedInclient = new ClientLoggedIn();
         Context.Context context = new Context.Context();
 
         public void ShowSignUpView()
@@ -92,7 +94,7 @@ namespace SunnyBuy.Views
                             Console.Clear();
                             homeView.ShowHome();
                             var products = new ProductsView();
-                            products.ProductsPageView();
+                            products.ProductsPageView(loggedInclient);
                             break;
                         default:
                             Console.Clear();

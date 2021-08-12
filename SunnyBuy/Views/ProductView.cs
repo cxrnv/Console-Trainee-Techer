@@ -1,11 +1,13 @@
 ﻿using System;
 using SunnyBuy.Services.CartServices;
+using SunnyBuy.LoggedIn;
 
 namespace SunnyBuy.Views
 {
     public class ProductView
     {
         Context.Context context = new Context.Context();
+        ClientLoggedIn loggedInclient = new ClientLoggedIn();
 
         public void CardProductCategory(string category)
         {
@@ -31,7 +33,7 @@ namespace SunnyBuy.Views
             Console.WriteLine();
         }
 
-        public void AddProductCardView(string awnser, int id)
+        public void AddProductCardView(string awnser, int productId, int clientId)
         {
             HomeView homeView = new HomeView();
             CartView cartView = new CartView();
@@ -41,7 +43,12 @@ namespace SunnyBuy.Views
             switch (awnser)
             {
                 case "Y":
-                    if (cartService.PostProductCart(id))
+                    //make a link to the view of sign up or login 
+                    //pass the LoggedIn.Client.To HERE to add to the cart with the id of the client
+                    Console.WriteLine("Type your id");
+                    var id = Convert.ToInt32(Console.ReadLine());
+
+                    if (cartService.AddProductCart(/*loggedInclient.ClientId*/ id, productId))
                         Console.WriteLine("                                      Added with success!  ");
                     else
                         throw new Exception("                    The product cannot be placed in the cart!!");
@@ -54,19 +61,19 @@ namespace SunnyBuy.Views
                     {
                         case "Y":
                             Console.Clear();
-                            cartView.ShowCart();
+                            cartView.ShowCart(loggedInclient);
                             break;
                         case "N":
                             Console.Clear();
                             homeView.ShowNav();
                             Console.WriteLine();
-                            productsView.ProductsPageView();
+                            productsView.ProductsPageView(loggedInclient);
                             break;
                         default:
                             Console.Clear();
                             homeView.ShowNav();
                             Console.WriteLine();
-                            productsView.ProductsPageView();
+                            productsView.ProductsPageView(loggedInclient);
                             break;
                     }
                     break;
@@ -74,13 +81,13 @@ namespace SunnyBuy.Views
                 case "N":
                     Console.Clear();
                     homeView.ShowNav();
-                    productsView.ProductsPageView();
+                    productsView.ProductsPageView(loggedInclient);
                     break;
                 default:
                     Console.Clear();
                     homeView.ShowNav();
                     Console.WriteLine();
-                    productsView.ProductsPageView();
+                    productsView.ProductsPageView(loggedInclient);
                     break;
             }
         }

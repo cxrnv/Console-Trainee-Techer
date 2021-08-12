@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using SunnyBuy.Entitities.DB;
+using SunnyBuy.LoggedIn;
 using SunnyBuy.Services.CartServices;
 
 namespace SunnyBuy.Views
@@ -8,12 +8,12 @@ namespace SunnyBuy.Views
     public class CartView
     {
         static protected readonly Context.Context context = new Context.Context();
-
+        ClientLoggedIn loggedInclient = new ClientLoggedIn();
         HomeView homeView = new HomeView();
         ProductsView productsView = new ProductsView();
         CartService cartService = new CartService(context);
 
-        public void ShowCart()
+        public void ShowCart(ClientLoggedIn loggedInclient)
         {
             Console.Clear();
             Console.WriteLine("       ___________________________________________________________________________________________________");
@@ -38,7 +38,10 @@ namespace SunnyBuy.Views
 
         public void ProductsCart()
         {
-            var cart = cartService.ShowProductsCart(1);
+            Console.WriteLine("Type your id: ");
+            var id = Convert.ToInt32(Console.ReadLine());
+
+            var cart = cartService.ShowProductsCart(id);
             var total = cart.Sum(a => a.Price);
 
             cart.ForEach
@@ -62,7 +65,7 @@ namespace SunnyBuy.Views
                     Console.Clear();
                     homeView.ShowHome();
                     Console.WriteLine();
-                    productsView.ProductsPageView();
+                    productsView.ProductsPageView(loggedInclient);
                     break;
                 case 2:
                     PurchaseView purchaseView = new PurchaseView();
@@ -71,7 +74,7 @@ namespace SunnyBuy.Views
                     break;
                 default:
                     Console.Clear();
-                    ShowCart();
+                    ShowCart(loggedInclient);
                     break;
             }
         }

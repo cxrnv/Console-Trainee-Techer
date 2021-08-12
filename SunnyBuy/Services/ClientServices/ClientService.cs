@@ -1,6 +1,9 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using SunnyBuy.Services.UsersServices.Models;
+using SunnyBuy.LoggedIn;
+using System.IO;
+using System;
 
 namespace SunnyBuy.Services.UsersServices
 {
@@ -28,10 +31,34 @@ namespace SunnyBuy.Services.UsersServices
                 }).ToList();
         }
 
-        public bool Login(string email)
+        public ClientLoggedIn LoggedIn(LoginModel model)
+        {
+            var client = new ClientLoggedIn();
+
+            try
+            {
+                client = context.Client
+                    .Where(
+                    a => a.Email == model.Email && a.Password == model.Password)
+                    .Select(a => new ClientLoggedIn
+                    {
+                        ClientId = a.ClientId,
+                    }).FirstOrDefault();
+
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("Ocurred an error");
+                Console.WriteLine(e);
+            }
+
+            return client;
+        }
+
+        public bool Login(string email, string password)
         {
             if (context.Client
-                 .Any(e => e.Email == email))
+                 .Any(e => e.Email == email && e.Password == password))
             {
                 return true;
             }

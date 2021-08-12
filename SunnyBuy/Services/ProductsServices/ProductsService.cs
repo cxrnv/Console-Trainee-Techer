@@ -2,15 +2,16 @@
 using System.Linq;
 using SunnyBuy.Views;
 using SunnyBuy.Enums;
-using SunnyBuy.Entitities.DB;
 using System.Collections.Generic;
 using SunnyBuy.Services.ProductsServices.Models;
+using SunnyBuy.LoggedIn;
 
 namespace SunnyBuy.Services.ProductsServices
 {
     public class ProductsService
     {
         protected readonly Context.Context context;
+        ClientLoggedIn clientLoggedIn = new ClientLoggedIn();
 
         public ProductsService(Context.Context context)
         {
@@ -111,7 +112,7 @@ namespace SunnyBuy.Services.ProductsServices
 
                     Console.WriteLine();
 
-                    productView.AddProductCardView(awnser_computer, computerId);
+                    productView.AddProductCardView(awnser_computer, computerId, clientLoggedIn.ClientId);
                     break;
                 case 2:
                     productView.CardProductCategory("Notebooks");
@@ -137,7 +138,7 @@ namespace SunnyBuy.Services.ProductsServices
 
                     Console.WriteLine();
 
-                    productView.AddProductCardView(awnser_notebook, notebookId);
+                    productView.AddProductCardView(awnser_notebook, notebookId, clientLoggedIn.ClientId);
                     break;
                 case 3:
                     productView.CardProductCategory("Acessories");
@@ -163,7 +164,7 @@ namespace SunnyBuy.Services.ProductsServices
 
                     Console.WriteLine();
 
-                    productView.AddProductCardView(awnser_acessorie, acessorieId);
+                    productView.AddProductCardView(awnser_acessorie, acessorieId, clientLoggedIn.ClientId);
                     break;
                 case 4:
                     productView.CardProductCategory("Smartphones");
@@ -189,7 +190,7 @@ namespace SunnyBuy.Services.ProductsServices
 
                     Console.WriteLine();
 
-                    productView.AddProductCardView(awnser_smartphone, smartphoneId);
+                    productView.AddProductCardView(awnser_smartphone, smartphoneId, clientLoggedIn.ClientId);
                     break;
                 case 5:
                     productView.CardProductCategory("Tablets");
@@ -215,7 +216,7 @@ namespace SunnyBuy.Services.ProductsServices
 
                     Console.WriteLine();
 
-                    productView.AddProductCardView(awnser_tablet, tabletId);
+                    productView.AddProductCardView(awnser_tablet, tabletId, clientLoggedIn.ClientId);
                     break;
             }
         }
